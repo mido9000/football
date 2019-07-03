@@ -5,10 +5,14 @@
  * @format
  * @flow
  */
-
+import {Scene, Router} from 'react-native-router-flux';
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import Forgetpassword from './pages/Forgetpassword';
+Forgetpassword
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -16,14 +20,18 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-export default class App extends Component{
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+      <Router>
+      <Scene key="root" hideNavBar>
+      <Scene key="Login" component={Login} title="Login" initial/>
+      <Scene key="Home" component={Home} title="Home"/>
+      <Scene key="Register" component={Register} title="Register" />
+      <Scene key="Forgetpassword" component={Forgetpassword} title="Forgetpassword" />
+      </Scene>
+    </Router>
     );
   }
 }
