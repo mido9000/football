@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import { Text, Image, Dimensions } from 'react-native';
 import { Container, Content, Icon, List, ListItem, Left, Right, Footer } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
+import * as firebase from "firebase";
 import TabFooter from '../Component/TabFooter';
 export default class Settings extends Component {
   constructor(props) {
     super(props);
 
   }
-
+  out() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    AsyncStorage.clear();
+    Actions.Login();
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
   render() {
 
     return (
@@ -42,7 +52,7 @@ export default class Settings extends Component {
                 <Text>Other</Text>
               </Left>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={()=>{Actions.Privacy()}}>
               <Left>
                 <Text>Privacy Policy</Text>
               </Left>
@@ -50,7 +60,7 @@ export default class Settings extends Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={()=>{Actions.Contactus()}}>
               <Left>
                 <Text>Contact Us</Text>
               </Left>
@@ -58,7 +68,7 @@ export default class Settings extends Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={()=>{Actions.About();}}>
               <Left>
                 <Text>About App</Text>
               </Left>
@@ -66,7 +76,7 @@ export default class Settings extends Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={() => { this.out() }}>
               <Left>
                 <Text>Logout</Text>
               </Left>

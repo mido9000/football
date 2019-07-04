@@ -23,22 +23,32 @@ export default class Login extends Component {
       Email: '',
       password: '',
     };
-    AsyncStorage.getItem('userD', (err, result) => {
-      if(result!=null)
-      {
-        Actions.Home();
-      }
-      if(result==null){
-        Actions.Register();
-      }
-  });
+  //   AsyncStorage.getItem('userD', (err, result) => {
+  //     if(result!=null)
+  //     {
+  //       Actions.Home();
+  //     }
+  //     if(result==null){
+  //       Actions.Register();
+  //     }
+  // });
   }
   Onlogin() {
     const { Email, password } = this.state;
 
-    Alert.alert('userData', `${Email} + ${password}`);
-    firebase.auth().signInWithEmailAndPassword(Email, password).then(()=>{
-       Alert.alert('Dataset');
+   // Alert.alert('userData', `${Email} + ${password}`);
+    firebase.auth().signInWithEmailAndPassword(Email, password).then((res)=>{
+      let  user={
+        Demail:Email,
+        Dpass:password
+      }
+      if(res){
+        AsyncStorage.setItem('userD', JSON.stringify(user), () => {
+         //     Alert.alert(result);
+        });
+   //     Alert.alert("done");
+        Actions.Home();
+      }
     })
     .catch(function(error) {
       // Handle Errors here.
@@ -69,7 +79,6 @@ export default class Login extends Component {
               <Input value={this.state.password} maxLength={16}  onChangeText={(password) => this.setState({ password })}
                                                  secureTextEntry={true} placeholder={'Enter Your password'} />
             </Item>
-            
             <Label style={{ textAlign: 'right',marginTop:10 }} onPress={() => { Actions.Forgetpassword() }}>Forget Password?</Label>
             <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.Onlogin() }}>
               <Text style={{ color: 'white', fontSize: 16,textAlign:'right',fontWeight:'bold' }}>Login</Text></Button>
