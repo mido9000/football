@@ -4,7 +4,7 @@ import { Container, Content, Form, Item, Input, Label, Button, Icon, View } from
 import { Actions } from 'react-native-router-flux';
 import * as firebase from "firebase";
 //import {firebaseConfig} from '../Config';
-
+import {AsyncStorage} from 'react-native';
 const firebaseConfig = {
   apiKey: "AIzaSyAgK_fMqjcl1S2mmMDwF6WtDYQmRwOsU2c",
   authDomain: "reactapp-8d948.firebaseapp.com",
@@ -23,6 +23,15 @@ export default class Login extends Component {
       Email: '',
       password: '',
     };
+    AsyncStorage.getItem('userD', (err, result) => {
+      if(result!=null)
+      {
+        Actions.Home();
+      }
+      if(result==null){
+        Actions.Register();
+      }
+  });
   }
   Onlogin() {
     const { Email, password } = this.state;

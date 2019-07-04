@@ -12,7 +12,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Forgetpassword from './pages/Forgetpassword';
-Forgetpassword
+import Settings from './pages/Settings';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -27,9 +27,10 @@ export default class App extends Component {
       <Router>
       <Scene key="root" hideNavBar>
       <Scene key="Login" component={Login} title="Login" initial/>
-      <Scene key="Home" component={Home} title="Home"/>
-      <Scene key="Register" component={Register} title="Register" />
+      <Scene key="Home" component={Home} title="Home" />
+      <Scene key="Register" component={Register} title="Register"/>
       <Scene key="Forgetpassword" component={Forgetpassword} title="Forgetpassword" />
+      <Scene key="Settings" component={Settings} title="Settings"  />
       </Scene>
     </Router>
     );

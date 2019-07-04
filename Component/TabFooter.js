@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet} from 'react-native';
-import { Container, Header, Content, Footer, FooterTab, Button, Text,Badge,Icon } from 'native-base';
+import { Footer, FooterTab, Button, Text,Badge,Icon } from 'native-base';
+import { Actions } from 'react-native-router-flux';
+import Home from '../pages/Home';
 export default class TabFooter extends Component {
   constructor(props) {
     super(props);
@@ -8,29 +10,29 @@ export default class TabFooter extends Component {
   }
 render(){
 return(
-    <Container>
-        <Content />
-        <Footer  >
-          <FooterTab style={{backgroundColor:"white"}}>
-            <Button  vertical transparent >
+   
+     
+        <Footer >
+          <FooterTab style={{backgroundColor:'white'}}>
+            <Button  vertical transparent onPress={()=>{Actions.Home()}} >
                 <Icon name="futbol-o" type="FontAwesome" />
+            </Button>
+            <Button vertical transparent>
+              <Icon name="location-pin" type="Entypo" />
+            </Button>
+            <Button vertical transparent>
+              <Icon active name="pluscircle" type="AntDesign"/>
             </Button>
             <Button  active badge vertical transparent>
             <Badge ><Text>1</Text></Badge>
               <Icon  name="profile" type="AntDesign"  />
             </Button>
-            <Button vertical transparent>
-              <Icon active name="pluscircle" type="AntDesign"/>
-            </Button>
-            <Button vertical transparent>
-              <Icon name="alarm" type="MaterialIcons" />
-            </Button>
-            <Button vertical transparent>
+            <Button vertical transparent onPress={()=>{Actions.Settings()}}>
               <Icon name="ios-settings" type="Ionicons" />
             </Button>
           </FooterTab>
         </Footer>
-      </Container>
+   
 
 );
 }

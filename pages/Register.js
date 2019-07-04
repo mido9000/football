@@ -3,6 +3,7 @@ import { StyleSheet, Text, Alert, Image } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Button, Icon, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from "firebase";
+import {AsyncStorage} from 'react-native';
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -15,8 +16,21 @@ export default class Register extends Component {
   }
   onRegister() {
     const { name, Email, password, confirmPassword } = this.state;
-    firebase.auth().createUserWithEmailAndPassword(Email, password).then(()=>{
-      Alert.alert("dataset");
+    firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
+    let  user={
+        Demail:Email,
+        Dpass:password
+      }
+      if(res){
+        AsyncStorage.setItem('userD', JSON.stringify(user), () => {
+        AsyncStorage.getItem('userD', (err, result) => {
+              console.log(result);
+              Alert.alert(result);
+          });
+        });
+        Alert.alert("done");
+        Actions.Home();
+      }
     })
     .catch(function(error) {
       Alert.alert("error"+error);
@@ -24,6 +38,7 @@ export default class Register extends Component {
     Alert.alert('userData', `${name}+${Email} + ${password} ${confirmPassword}`);
     console.log(name);
   }
+  
   render() {
     return (
       <Container style={{ padding: 5 }}>
