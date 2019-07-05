@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage,Text,Image,Dimensions} from 'react-native';
+import {AsyncStorage,Text,Image,Dimensions,Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 console.disableYellowBox=true;
 export default class Splash extends Component {
@@ -15,6 +15,10 @@ export default class Splash extends Component {
             AsyncStorage.getItem('userD', (err, result) => {
                 if(result!=null)
                 {
+                //  Alert.alert(result)
+               //   var d=JSON.parse(result);
+               //   Alert.alert(d.Demail);
+                //  Alert.alert(d.Dpass);
                   Actions.Home();
                 }
                 if(result==null){

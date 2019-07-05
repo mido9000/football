@@ -39,7 +39,7 @@ export default class Settings extends Component {
                 <Icon name="arrow-forward" />
               </Right>
             </ListItem>
-            <ListItem>
+            <ListItem onPress={()=>{Actions.Changepassword()}}>
               <Left>
                 <Text>Change Password</Text>
               </Left>

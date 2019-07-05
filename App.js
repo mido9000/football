@@ -17,6 +17,9 @@ import Splash from './Component/Splash';
 import About from './pages/About';
 import Contactus from './pages/Contactus';
 import Privacy from './pages/Privacy';
+import Changepassword from './pages/Changepassword';
+import Notifications from './pages/Notifications';
+import Locations from './pages/Locations';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -39,6 +42,9 @@ export default class App extends Component {
       <Scene key="Contactus" component={Contactus} title="Contactus"  />
       <Scene key="Privacy" component={Privacy} title="Privacy"  />
       <Scene key="About" component={About} title="About"  />
+      <Scene key="Changepassword" component={Changepassword} title="Changepassword"  />
+      <Scene key="Notifications" component={Notifications} title="Notifications"  />
+      <Scene key="Locations" component={Locations} title="Locations"  />
       </Scene>
     </Router>
     );

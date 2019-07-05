@@ -57,7 +57,7 @@ export default class Login extends Component {
       // ...
      
     });
-    Actions.Home();
+   // Actions.Home();
   }
   render() {
     return (
