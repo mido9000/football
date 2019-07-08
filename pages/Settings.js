@@ -31,7 +31,7 @@ export default class Settings extends Component {
                 <Text>Account</Text>
               </Left>
             </ListItem>
-            <ListItem >
+            <ListItem onPress={()=>{Actions.Editprofile()}}>
               <Left>
                 <Text>Edit Profile</Text>
               </Left>

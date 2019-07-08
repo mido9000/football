@@ -6,11 +6,13 @@ import * as firebase from "firebase";
 import {AsyncStorage} from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 const options = {
-  title: 'Select Avatar',
+title: 'Select Avatar',
 takePhotoButtonTitle:'take photo with camera',
 chooseFromLibraryButtonTitle:'Choose Photo from Library',
   
 };
+var database = firebase.database();
+var storage = firebase.storage();
 export default class Register extends Component {
   constructor(props) {
     super(props);
@@ -24,26 +26,41 @@ export default class Register extends Component {
 
   }
   onRegister() {
-    const { name, Email, password, confirmPassword } = this.state;
-    firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
+    const { name, Email, password, avatarSource } = this.state;
     let  user={
-        Demail:Email,
-        Dpass:password
-      }
-      if(res){
-        AsyncStorage.setItem('userD', JSON.stringify(user), () => {
-        AsyncStorage.getItem('userD', (err, result) => {
-              console.log(result);
-              Alert.alert(result);
+      Dname:name,
+      Demail:Email,
+      Dpass:password,
+      DImg:avatarSource
+    }
+    var promise =new Promise((resolve,reject)=>{
+      firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
+    
+        var newPostKey = firebase.database().ref().child('test').push().key;
+          firebase.database().ref('test/'+newPostKey).set({
+            username: name,
+            email: Email,
+            profile_picture : avatarSource,
+            userpassword:password,
+            userkey:newPostKey
           });
-        });
-      //  Alert.alert("done");
-        Actions.Home();
-      }
+         
+        if(res){
+          AsyncStorage.setItem('userD', JSON.stringify(user), () => {
+          AsyncStorage.getItem('userD', (err, result) => {
+                console.log(result);
+                Alert.alert(result);
+            });
+          });
+        //  Alert.alert("done");
+          Actions.Home();
+        }
+      })
+      .catch(function(error) {
+        Alert.alert("error"+error);
+      });
     })
-    .catch(function(error) {
-      Alert.alert("error"+error);
-    });
+   
   //  Alert.alert('userData', `${name}+${Email} + ${password} ${confirmPassword}`);
   //  console.log(name);
   }

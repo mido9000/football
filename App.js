@@ -20,6 +20,8 @@ import Privacy from './pages/Privacy';
 import Changepassword from './pages/Changepassword';
 import Notifications from './pages/Notifications';
 import Locations from './pages/Locations';
+import Editprofile from './pages/Editprofile';
+import Sessions from './pages/Sessions';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -45,6 +47,8 @@ export default class App extends Component {
       <Scene key="Changepassword" component={Changepassword} title="Changepassword"  />
       <Scene key="Notifications" component={Notifications} title="Notifications"  />
       <Scene key="Locations" component={Locations} title="Locations"  />
+      <Scene key="Editprofile" component={Editprofile} title="Editprofile"  />
+      <Scene key="Sessions" component={Sessions} title="Sessions"  />
       </Scene>
     </Router>
     );
