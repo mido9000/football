@@ -11,36 +11,24 @@ export default class SingleSession extends Component {
 render(){
 return(
       <View>
-          {/* <ListItem avatar>
-        <Left>
-          <Thumbnail  source={require('../Img/15.png')} />
-        </Left>
-        <Body>
-          <Text>Kumar Pratik</Text>
-          <Text note>Doing what you like will always keep you happy . .</Text>
-        </Body>
-        <Right>
-          <Text note>3:43 pm</Text>
-        </Right>
-      </ListItem> */}
       <Card>
             <CardItem>
               <Left>
                 <Thumbnail source={require('../Img/15.png')} />
                 <Body>
-                  <Text>NativeBase</Text>
+                  <Text>{this.props.listData.name}</Text>
                   <Text note>GeekyAnts</Text>
                 </Body>
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={require('../Img/15.png')} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={require('../Img/2.jpg')} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent>
-                  <Icon active type="EvilIcons" name="heart" />
-                  <Text>/15 Particpant</Text>
+                  <Icon active type="AntDesign" name="addusergroup" />
+                  <Text>{this.props.listData.key}/15</Text>
                 </Button>
               </Left>
               <Body>
@@ -49,14 +37,10 @@ return(
               <Right>
               <Button transparent>
                   <Icon active type="EvilIcons" name="star" />
-                  <Text>4 </Text>
+                  <Text>{this.props.listData.age}</Text>
                 </Button>
               </Right>
             </CardItem>
-
-      <Text>{this.props.listData.name}</Text>
-      <Text>{this.props.listData.key}</Text>
-      <Text>{this.props.listData.age}</Text>
       </Card>
       </View>
       

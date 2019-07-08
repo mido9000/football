@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Alert, Image } from 'react-native';
+import { StyleSheet, Text, Alert, Image,Animated, Easing } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Button, Icon, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from "firebase";
@@ -22,17 +22,20 @@ export default class Login extends Component {
     this.state = {
       Email: '',
       password: '',
+      spinAnim: new Animated.Value(0)
     };
-  //   AsyncStorage.getItem('userD', (err, result) => {
-  //     if(result!=null)
-  //     {
-  //       Actions.Home();
-  //     }
-  //     if(result==null){
-  //       Actions.Register();
-  //     }
-  // });
   }
+  componentDidMount(){
+    Animated.loop(Animated.timing(
+       this.state.spinAnim,
+     {
+       toValue: 1,
+       duration: 4000,
+       easing: Easing.linear,
+       useNativeDriver: true
+     }
+   )).start();
+    }
   Onlogin() {
     const { Email, password } = this.state;
 
@@ -60,12 +63,16 @@ export default class Login extends Component {
    // Actions.Home();
   }
   render() {
+    const spin = this.state.spinAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg']
+    });
     return (
       <Container style={{ padding: 5 }}>
         <Content>
           <Form style={{ flex: 1 }}>
             <View style={{justifyContent:"center",alignItems:"center"}}>
-            <Image style={{ width: 150, height: 150}} source={require('../Img/1.png')}></Image>
+            <Animated.Image style={{ width: 150,marginTop:20,height: 150,transform: [{rotate: spin}]}} source={require('../Img/1.png')}></Animated.Image>
             </View>
 
             <Item stackedLabel style={{marginTop:25}}>
