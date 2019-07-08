@@ -11,56 +11,39 @@ takePhotoButtonTitle:'take photo with camera',
 chooseFromLibraryButtonTitle:'Choose Photo from Library',
   
 };
-var database = firebase.database();
-var storage = firebase.storage();
-export default class Register extends Component {
+export default class Editprofile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       Email: '',
       password: '',
-      confirmPassword: '',
       name: '',
+      phone:'',
       avatarSource:require('../Img/15.png')
     };
 
   }
   onRegister() {
-    const { name, Email, password, avatarSource } = this.state;
+    const { name, Email, password } = this.state;
+    firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
     let  user={
-      Dname:name,
-      Demail:Email,
-      Dpass:password,
-      DImg:avatarSource
-    }
-    var promise =new Promise((resolve,reject)=>{
-      firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
-    
-        var newPostKey = firebase.database().ref().child('test').push().key;
-          firebase.database().ref('test/'+newPostKey).set({
-            username: name,
-            email: Email,
-            profile_picture : avatarSource,
-            userpassword:password,
-            userkey:newPostKey
+        Demail:Email,
+        Dpass:password
+      }
+      if(res){
+        AsyncStorage.setItem('userD', JSON.stringify(user), () => {
+        AsyncStorage.getItem('userD', (err, result) => {
+              console.log(result);
+              Alert.alert(result);
           });
-         
-        if(res){
-          AsyncStorage.setItem('userD', JSON.stringify(user), () => {
-          AsyncStorage.getItem('userD', (err, result) => {
-                console.log(result);
-                Alert.alert(result);
-            });
-          });
-        //  Alert.alert("done");
-          Actions.Home();
-        }
-      })
-      .catch(function(error) {
-        Alert.alert("error"+error);
-      });
+        });
+      //  Alert.alert("done");
+        Actions.Home();
+      }
     })
-   
+    .catch(function(error) {
+      Alert.alert("error"+error);
+    });
   //  Alert.alert('userData', `${name}+${Email} + ${password} ${confirmPassword}`);
   //  console.log(name);
   }
@@ -94,6 +77,7 @@ export default class Register extends Component {
               <Image style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={this.state.avatarSource}></Image>
               <Icon style={{color:'#F58524'}} name='edit' type='AntDesign'onPress={()=>{this.pickerImg()}} />
             </View>
+
             <Item stackedLabel>
               <Label>Name</Label>
               <Input value={this.state.name} onChangeText={(name) => this.setState({ name })} placeholder={'Enter Your Name'} />
@@ -103,16 +87,10 @@ export default class Register extends Component {
               <Input value={this.state.Email} autoCompleteType={"email"} onChangeText={(Email) => this.setState({ Email })} placeholder={'Enter Your Email'} />
             </Item>
             <Item stackedLabel last>
-              <Label>Password</Label>
-              <Input value={this.state.password} maxLength={16} onChangeText={(password) => this.setState({ password })} secureTextEntry={true} placeholder={'Enter Your password'} />
+              <Label>Phone Number</Label>
+              <Input value={this.state.phone} maxLength={16} onChangeText={(phone) => this.setState({ phone })}  placeholder={'Enter Your Phone'} />
             </Item>
-            <Item stackedLabel last>
-              <Label>Confirm Password</Label>
-              <Input value={this.state.confirmPassword} maxLength={16} onChangeText={(confirmPassword) => this.setState({ confirmPassword })} secureTextEntry={true} placeholder={'Confirm Your password'} />
-            </Item>
-            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.onRegister() }}><Text style={{ color: 'white', fontSize: 16, textAlign: 'right', fontWeight: 'bold' }}>Register</Text></Button>
-            <Label style={{ textAlign: 'center', paddingTop: 20, color: '#707070' }}>You alerady have an account?
-            <Text style={{ color: '#F58524' }} onPress={() => { Actions.Login() }} >Login</Text></Label>
+            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.onRegister() }}><Text style={{ color: 'white', fontSize: 16, textAlign: 'right', fontWeight: 'bold' }}>Update</Text></Button>
           </Form>
         </Content>
       </Container>
