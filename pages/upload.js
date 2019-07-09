@@ -56,36 +56,47 @@ export default class Upload extends Component {
     super(props)
     this.state = {
 
-      filedName: '',
-      address: '',
-      capacity: '',
+      location: '',
+      description: '',
+      //capacity: '',
       phone: '',
       time: '',
-      period: '',
+      //period: '',
       date: '',
       price: '',
       picurl: '',
+      players:'',
+      counter:1,
       i: 1,
       avatarSource: require('../Img/2.jpg')
     }
   }
   Confirm() {
-    const { filedName, address, capacity, phone, time, period, date, price } = this.state;
+    const { location, description, phone, time, date, price,counter } = this.state;
     var picurl = this.state.avatarSource;
     var userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('Session/').push({
-      filedName,
-      address,
-      capacity,
-      phone,
-      time,
-      period,
-      date,
-      price,
-      userId,
-      picurl,
-
-    }).then((data) => {
+    var sessionId=firebase.database().ref('Session/').push().key;
+    firebase.database().ref("Session/"+sessionId).set(
+      {
+        location,
+        description,
+       // capacity,
+        phone,
+        time,
+        //period,
+        date,
+        price,
+        counter,
+        userId,
+        picurl,
+  
+      }
+    ).then((data)=>{
+      firebase.database().ref("Session/"+sessionId+"/players").set({
+        1:userId
+      })
+    })
+    .then((data) => {
       //success callback
       this.setState({ i: 2 })
       console.log('data ', data)
@@ -115,15 +126,15 @@ export default class Upload extends Component {
       <Container>
         <Content>
           <Form style={{ padding: 20 }}>
-            <Item stackedLabel style={{ borderColor: "red" }}><Label>filedName</Label>
-              <Input onChangeText={(filedName) => { this.setState({ filedName: filedName }); }} />
+            <Item stackedLabel style={{ borderColor: "red" }}><Label>Location</Label>
+              <Input onChangeText={(location) => { this.setState({ location: location }); }} />
             </Item>
-            <Item stackedLabel style={{ borderColor: "red" }}><Label>address</Label>
-              <Input onChangeText={(address) => { this.setState({ address: address }); }} />
+            <Item stackedLabel style={{ borderColor: "red" }}><Label>Description</Label>
+              <Input onChangeText={(description) => { this.setState({ description: description }); }} />
             </Item>
-            <Item stackedLabel style={{ borderColor: "red" }}><Label>capacity</Label>
+            {/* <Item stackedLabel style={{ borderColor: "red" }}><Label>capacity</Label>
               <Input keyboardType={"number-pad"} maxLength={2} onChangeText={(capacity) => { this.setState({ capacity: capacity }); }} />
-            </Item>
+            </Item> */}
             <Item stackedLabel style={{ borderColor: "red" }}><Label>phone</Label>
               <Input keyboardType={"number-pad"} onChangeText={(phone) => { this.setState({ phone: phone }); }} />
             </Item>
@@ -157,14 +168,15 @@ export default class Upload extends Component {
               // }}
               />
             </View>
-            <Item stackedLabel style={{ borderColor: "red" }}><Label>period</Label>
+            {/* <Item stackedLabel style={{ borderColor: "red" }}><Label>period</Label>
               <Input onChangeText={(period) => { this.setState({ period: period }); }} />
-            </Item>
+            </Item> */}
             <Item stackedLabel style={{ borderColor: "red" }}><Label>price</Label>
               <Input maxLength={3} keyboardType={"number-pad"} onChangeText={(price) => { this.setState({ price: price }) }} />
             </Item>
             <View style={{ alignContent: "center", alignItems: "center" }}>
               {this.uploadImage()}
+              {/* <Text> {this.state.avatarSource} </Text> */}
             </View>
             <View style={{ justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
               <Button style={{ borderRadius: 20 }} warning><Text> Cancel </Text></Button>

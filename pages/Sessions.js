@@ -5,7 +5,7 @@ import { Container, Content, List, ListItem, Left, Body, Right, Thumbnail,Text }
 import SingleSession from '../Component/SingleSession';
 import flatlistData from '../Data/FlatListData';
 //import console = require('console');
-
+import TabFooter from '../Component/TabFooter';
 
 export default class Sessions extends Component {
     
@@ -31,7 +31,7 @@ export default class Sessions extends Component {
         renderItem={this._renderItem}/>
      
       </Content>
-  
+      <TabFooter></TabFooter>
       </Container>
     )
   }

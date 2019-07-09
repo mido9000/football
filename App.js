@@ -24,6 +24,7 @@ import Editprofile from './pages/Editprofile';
 import Sessions from './pages/Sessions';
 import SingleSession from './Component/SingleSession';
 import Upload from './pages/upload';
+import Details from './pages/Details';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -53,6 +54,7 @@ export default class App extends Component {
       <Scene key="Sessions" component={Sessions} title="Sessions"  />
       <Scene key="SingleSession" component={SingleSession} title="SingleSession"  />
       <Scene key="Upload" component={Upload} title="Upload"  />
+      <Scene key="Details" component={Details} title="Details"  />
       </Scene>
     </Router>
     );

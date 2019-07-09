@@ -36,8 +36,8 @@ export default class Register extends Component {
     var promise =new Promise((resolve,reject)=>{
       firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
     
-        var newPostKey = firebase.database().ref().child('test').push().key;
-          firebase.database().ref('test/'+newPostKey).set({
+        var newPostKey = firebase.database().ref().child('Users').push().key;
+          firebase.database().ref('Users/'+newPostKey).set({
             username: name,
             email: Email,
             profile_picture : avatarSource,

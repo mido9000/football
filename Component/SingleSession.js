@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet,View,Image} from 'react-native';
+import {StyleSheet,View,Image,TouchableWithoutFeedback} from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
 export default class SingleSession extends Component {
   constructor(props) {
     super(props);
@@ -11,8 +10,10 @@ export default class SingleSession extends Component {
 render(){
 return(
       <View>
+         <TouchableWithoutFeedback onPress={()=>{Actions.Details()}}>
       <Card>
-            <CardItem>
+     
+            <CardItem >
               <Left>
                 <Thumbnail source={require('../Img/15.png')} />
                 <Body>
@@ -21,6 +22,7 @@ return(
                 </Body>
               </Left>
             </CardItem>
+          
             <CardItem cardBody>
               <Image source={require('../Img/2.jpg')} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
@@ -42,6 +44,8 @@ return(
               </Right>
             </CardItem>
       </Card>
+      </TouchableWithoutFeedback>
+     
       </View>
       
     
