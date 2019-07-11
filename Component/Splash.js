@@ -17,19 +17,19 @@ export default class Splash extends Component {
                 if(result!=null)
                 {
                 //  Alert.alert(result)
-                  var d=JSON.parse(result);
+                  //var d=JSON.parse(result);
                //   Alert.alert(d.Demail);
                 //  Alert.alert(d.Dpass);
 
-                firebase.auth().signInWithEmailAndPassword(d.Demail, d.Dpass).then((res)=>{
-                  Actions.Home();
-                })
-                .catch(function(error) {
-                  // Handle Errors here.
-                  // var errorCode = error.code;
-                  // var errorMessage = error.message;
-                  // ...
-                });
+                // firebase.auth().signInWithEmailAndPassword(d.Demail, d.Dpass).then((res)=>{
+                   Actions.Home();
+                // })
+                // .catch(function(error) {
+                //   // Handle Errors here.
+                //   // var errorCode = error.code;
+                //   // var errorMessage = error.message;
+                //   // ...
+                // });
                 }
                 if(result==null){
                   Actions.Login();

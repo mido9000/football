@@ -37,7 +37,8 @@ export default class Register extends Component {
       firebase.auth().createUserWithEmailAndPassword(Email, password).then((res)=>{
     
         var newPostKey = firebase.database().ref().child('Users').push().key;
-          firebase.database().ref('Users/'+newPostKey).set({
+        var user = firebase.auth().currentUser.uid;
+          firebase.database().ref('Users/'+user).set({
             username: name,
             email: Email,
             profile_picture : avatarSource,

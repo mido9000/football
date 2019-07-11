@@ -21,7 +21,17 @@ export default class Editprofile extends Component {
       phone:'',
       avatarSource:require('../Img/15.png')
     };
+    var user = firebase.auth().currentUser.uid;
+    var ref=firebase.database().ref('Users/'+user);
+    ref.child("username").once('value').then((snapshot)=>{
+      if (snapshot.val() !=null){
+        this.setState({
+          name:snapshot.toJSON()
+        }) 
+        resolve(name);
+      }else{reject("user")}
 
+   });
   }
   onRegister() {
     const { name, Email, password } = this.state;
