@@ -5,6 +5,9 @@ import { Actions } from 'react-native-router-flux';
 export default class SingleSession extends Component {
   constructor(props) {
     super(props);
+
+    //alert(JSON.stringify(props.listData) )
+    alert(JSON.stringify(props.listData.userInfo.profile_picture.uri))
   
   }
 render(){
@@ -15,10 +18,11 @@ return(
      
             <CardItem >
               <Left>
-                <Thumbnail source={require('../Img/15.png')} />
+                {/* <Thumbnail source={require('../Img/15.png')} /> */}
+                <Thumbnail source={{uri :this.props.listData.userInfo.profile_picture.uri}} />
                 <Body>
-                  <Text>{this.props.listData.name}</Text>
-                  <Text note>GeekyAnts</Text>
+                  <Text>{this.props.listData.location}</Text>
+                  <Text note>{this.props.listData.userInfo.email}</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -30,7 +34,7 @@ return(
               <Left>
                 <Button transparent>
                   <Icon active type="AntDesign" name="addusergroup" />
-                  <Text>{this.props.listData.key}/15</Text>
+                  <Text>/15</Text>
                 </Button>
               </Left>
               <Body>
@@ -39,7 +43,7 @@ return(
               <Right>
               <Button transparent>
                   <Icon active type="EvilIcons" name="star" />
-                  <Text>{this.props.listData.age}</Text>
+                  <Text>{this.props.listData.date}</Text>
                 </Button>
               </Right>
             </CardItem>

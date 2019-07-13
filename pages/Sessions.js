@@ -7,13 +7,65 @@ import flatlistData from '../Data/FlatListData';
 //import console = require('console');
 import TabFooter from '../Component/TabFooter';
 
+
 export default class Sessions extends Component {
+  state={
+    name:"omar",
+    session:[],
+    user:{}
+  }
+
+  componentWillMount(){
+    
+    firebase.database().ref('Session').on('value',(childSnapshot)=>{
+      var mysec=[];
+      
+      
+     
+     childSnapshot.forEach((doc)=>{
+        
+      var userid=doc.toJSON().userId;
+      //var userInfo;
+       // alert(userid)
+        firebase.database().ref("Users/"+userid).once('value').then((snapshot)=>{
+          this.setState({
+            user:snapshot.toJSON()
+          })
+        })
+        .then(()=>{
+          mysec.push({
+            date:doc.toJSON().counter,
+            phone:doc.toJSON().date,
+            description:doc.toJSON().description,
+            location:doc.toJSON().location,
+            phone:doc.toJSON().phone,
+            pic:doc.toJSON().picurl,
+            price:doc.toJSON().price,
+            time:doc.toJSON().time,
+            userId:doc.toJSON().userId,
+            userInfo:this.state.user
+            
+        })}) 
+        .then(()=>{
+          this.setState({
+            session:mysec
+          })
+        })
+        // .then(()=>{
+        //   alert(JSON.stringify(this.state.session));
+        // })
+           
+           //alert(JSON.stringify(this.state.session) )
+
+          
+     });
+     
+    });
+  }
     
   constructor(props){
     super(props);
-   this.state={
-      name:"omar"
-    }
+   
    
   }
   _renderItem = ({item}) =>(
@@ -25,7 +77,7 @@ export default class Sessions extends Component {
       <Content>
       
         <FlatList
-        data={flatlistData}
+        data={this.state.session}
         extraData={this.state.name}
         //keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}/>
