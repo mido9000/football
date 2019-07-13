@@ -7,13 +7,16 @@ export default class SingleSession extends Component {
     super(props);
 
     //alert(JSON.stringify(props.listData) )
-    alert(JSON.stringify(props.listData.userInfo.profile_picture.uri))
+    //alert(JSON.stringify(props.listData.userInfo.profile_picture.uri))
   
   }
 render(){
 return(
       <View>
-         <TouchableWithoutFeedback onPress={()=>{Actions.Details()}}>
+         <TouchableWithoutFeedback onPress={()=>{
+           Actions.Details({
+             data:this.props.listData
+            })}} >
       <Card>
      
             <CardItem >
