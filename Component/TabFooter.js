@@ -12,7 +12,7 @@ render(){
 return(
         <Footer >
           <FooterTab style={{backgroundColor:'white'}}>
-            <Button  vertical transparent onPress={()=>{Actions.Home()}} >
+            <Button  vertical transparent onPress={()=>{Actions.Sessions()}} >
                 <Icon name="futbol-o" type="FontAwesome" />
             </Button>
             <Button vertical transparent onPress={()=>{Actions.Locations()}}>
@@ -21,9 +21,9 @@ return(
             <Button vertical transparent onPress={()=>{Actions.Upload()}} >
               <Icon active name="pluscircle" type="AntDesign"/>
             </Button>
-            <Button  active badge vertical transparent onPress={()=>{Actions.Notifications()}}>
-            <Badge ><Text>1</Text></Badge>
-              <Icon  name="profile" type="AntDesign"  />
+            <Button  active  transparent onPress={()=>{Actions.History()}}>
+            {/* <Badge ><Text>1</Text></Badge> */}
+              <Icon  name="history" type="FontAwesome"  />
             </Button>
             <Button vertical transparent onPress={()=>{Actions.Settings()}}>
               <Icon name="ios-settings" type="Ionicons" />

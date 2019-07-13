@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image, ActivityIndicator, TextInput } from 'react-native';
-import { Text, Item, Input, Container, Content, Button, Form, Label,Spinner  } from 'native-base';
+import { Text, Item, Input, Container, Content, Button, Form, Label,Spinner,Picker,Icon   } from 'native-base';
 import * as firebase from "firebase";
 import RNFetchBlob from 'react-native-fetch-blob';
 var ImagePicker = require('react-native-image-picker');
 import DatePicker from 'react-native-datepicker';
+import { Actions } from 'react-native-router-flux';
 
 
 const storage = firebase.storage();
@@ -68,6 +69,7 @@ export default class Upload extends Component {
       players:'',
       counter:1,
       i: 1,
+      selected2: undefined,
       avatarSource: require('../Img/2.jpg')
     }
   }
@@ -121,14 +123,38 @@ export default class Upload extends Component {
       }
     });
   }
+  onValueChange2(value: string) {
+    this.setState({
+      location: value
+    });
+  }
   render() {
     return (
       <Container>
         <Content>
           <Form style={{ padding: 20 }}>
-            <Item stackedLabel style={{ borderColor: "red" }}><Label>Location</Label>
-              <Input onChangeText={(location) => { this.setState({ location: location }); }} />
+          <Item  style={{ borderColor: "red" }} picker>
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                style={{ width: undefined }}
+                placeholder="Select your Location"
+                placeholderStyle={{ color: "#bfc6ea" }}
+                placeholderIconColor="#007aff"
+                selectedValue={this.state.selected2}
+                onValueChange={this.onValueChange2.bind(this)}
+              >
+                <Picker.Item label="Wallet" value="key0" />
+                <Picker.Item label="ATM Card" value="key1" />
+                <Picker.Item label="Debit Card" value="key2" />
+                <Picker.Item label="Credit Card" value="key3" />
+                <Picker.Item label="Net Banking" value="key4" />
+              </Picker>
             </Item>
+
+            {/* <Item stackedLabel style={{ borderColor: "red" }}><Label>Location</Label>
+              <Input onChangeText={(location) => { this.setState({ location: location }); }} />
+            </Item> */}
             <Item stackedLabel style={{ borderColor: "red" }}><Label>Description</Label>
               <Input onChangeText={(description) => { this.setState({ description: description }); }} />
             </Item>
@@ -179,7 +205,7 @@ export default class Upload extends Component {
               {/* <Text> {this.state.avatarSource} </Text> */}
             </View>
             <View style={{ justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
-              <Button style={{ borderRadius: 20 }} warning><Text> Cancel </Text></Button>
+              <Button onPress={()=>{Actions.pop()}} style={{ borderRadius: 20 }} warning><Text> Cancel </Text></Button>
               <TouchableOpacity style={{ alignContent: "center", justifyContent: "center" }} onPress={() => { this.pickImage() }}>
                 <Image style={{ width: 50, height: 50, alignItems: "center" }} source={require('../Img/camera.png')}></Image>
               </TouchableOpacity>

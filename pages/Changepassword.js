@@ -37,11 +37,11 @@ export default class Changepassword extends Component {
         <Form>
           <Item stackedLabel>
             <Label>New Password</Label>
-            <Input onChangeText={(password) => this.setState({ password })} />
+            <Input secureTextEntry={true} onChangeText={(password) => this.setState({ password })} />
           </Item>
           <Item stackedLabel last>
             <Label>Re-Enter Password</Label>
-            <Input onChangeText={(Newpassword) => this.setState({ Newpassword })}/>
+            <Input  secureTextEntry={true} onChangeText={(Newpassword) => this.setState({ Newpassword })}/>
           </Item>
           <Button block danger onPress={()=>{this.update()}}><Text style={{color: 'white', fontSize: 16, textAlign: 'center', fontWeight: 'bold'}}>Update</Text></Button>
         </Form>

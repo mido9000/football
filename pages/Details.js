@@ -33,7 +33,7 @@ return(
             <CardItem>
             </CardItem>
       </Card>
-      <Button style={{ marginTop: 80, borderRadius: 5, height: 60 }} danger block  onPress={()=>{Actions.Home()}}>
+      <Button style={{ marginTop: 80, borderRadius: 5, height: 60 }} danger block  onPress={()=>{Actions.Confirm()}}>
               <Text style={{ color: 'white',textAlign:'right',fontWeight:'bold',fontSize:16 }}>Continue</Text>
                           <Icon name='futbol-o' type="FontAwesome" /></Button>
 
