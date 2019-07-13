@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
 import * as firebase from "firebase";
 import TabFooter from '../Component/TabFooter';
+import MainHeader from '../Component/MainHeader';
 export default class Settings extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,7 @@ export default class Settings extends Component {
 
     return (
       <Container>
-        <Text style={{ textAlign: 'center', fontSize: 30 }}>mohamed</Text>
+        <MainHeader></MainHeader>
         <Content >
           <List>
             <ListItem noIndent style={{ backgroundColor: "#F6F6F6" }}>

@@ -19,14 +19,87 @@ export default class Register extends Component {
     this.state = {
       Email: '',
       password: '',
-      confirmPassword: '',
+      mobile: '',
       name: '',
-      avatarSource:require('../Img/15.png')
+      avatarSource:require('../Img/15.png'),
+      nameValidate:true,
+      passwordValidate:true,
+      EmailValidate:true
     };
 
   }
+  errorMsg(text,type)
+{
+   if(!this.state.nameValidate)
+   {
+     alert("username must be from a-z,A-z");
+
+   }
+    else if(!this.state.passwordValidate)
+   {
+    alert("password must contain \n at least 1 lowercase , Uppercase alphabetical character \n must conatin \n at least 1 numeric character\n at least one special character\n must be at least 8 characters");
+
+   }
+   else if(!this.state.EmailValidate)
+   {
+    alert("Email must be like this: mysite@ourearth.com or like this: mysite@you.me.net");
+   }
+   
+}
+ 
+validate(text,type)
+{
+if(type=='username')
+{
+    if(alpha.test(text))
+    {
+        this.setState({
+            nameValidate:true,
+        })
+    }
+    else
+    {
+          this.setState({
+            nameValidate:false,
+        })
+    }
+}
+else if(type=='password')
+{
+    if(num.test(text))
+    {
+        this.setState({
+            passwordValidate:true,
+        })
+    }
+    else
+    { 
+         this.setState({
+            passwordValidate:false,
+        })
+    }
+    
+}
+else if(type=='Email')
+{
+    if(emailvaild.test(text))
+    {
+        this.setState({
+            EmailValidate:true,
+        })
+    }
+    else
+    { 
+         this.setState({
+            EmailValidate:false,
+        })
+    }
+    
+}
+
+}
   onRegister() {
-    const { name, Email, password, avatarSource } = this.state;
+    const { name, Email, password, avatarSource,mobile } = this.state;
     let  user={
       Dname:name,
       Demail:Email,
@@ -43,7 +116,8 @@ export default class Register extends Component {
             email: Email,
             profile_picture : avatarSource,
             userpassword:password,
-            userkey:newPostKey
+            userkey:newPostKey,
+            usermobile:mobile
           });
          
         if(res){
@@ -108,8 +182,8 @@ export default class Register extends Component {
               <Input value={this.state.password} maxLength={16} onChangeText={(password) => this.setState({ password })} secureTextEntry={true} placeholder={'Enter Your password'} />
             </Item>
             <Item stackedLabel last>
-              <Label>Confirm Password</Label>
-              <Input value={this.state.confirmPassword} maxLength={16} onChangeText={(confirmPassword) => this.setState({ confirmPassword })} secureTextEntry={true} placeholder={'Confirm Your password'} />
+              <Label>Mobile Number</Label>
+              <Input value={this.state.mobile} maxLength={16} onChangeText={(mobile) => this.setState({ mobile })}  placeholder={'Enter your Mobile Number'} />
             </Item>
             <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.onRegister() }}><Text style={{ color: 'white', fontSize: 16, textAlign: 'right', fontWeight: 'bold' }}>Register</Text></Button>
             <Label style={{ textAlign: 'center', paddingTop: 20, color: '#707070' }}>You alerady have an account?
@@ -121,21 +195,43 @@ export default class Register extends Component {
   }
 }
 
+const alpha=/^[a-zA-Z]+$/;
+const num  = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+ const emailvaild=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  container:{
+    backgroundColor:'#26AE90',
+    flex:1,
+    justifyContent:'center',
+    paddingLeft:7,
+},
+inputStyle:{
+    backgroundColor:'#fff',
+    marginBottom:15,
+    fontSize:20,
+    paddingLeft:15,
+},
+btnText:{
+    backgroundColor:'#ECEEF1',
+    paddingBottom:10,
+    paddingTop:10,
+    fontSize:18,
+    marginTop:25,
+    color:'#26AE90',
+    textAlign:'center',
+   fontWeight: 'bold',
+},
+btnTextSignUp:{
+    fontSize:16,
+    color:'#fff',
+    marginTop:70,
+    fontWeight:'bold',
+    textAlign:'center',
+},
+error:{
+
+    borderWidth: 3,
+    borderColor: 'red',
+},
 });

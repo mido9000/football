@@ -87,9 +87,9 @@ export default class Login extends Component {
                                                  secureTextEntry={true} placeholder={'Enter Your password'} />
             </Item>
             <Label style={{ textAlign: 'right',marginTop:10 }} onPress={() => { Actions.Forgetpassword() }}>Forget Password?</Label>
-            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.Onlogin() }}>
+            <Button style={{ marginTop: 10, borderRadius: 5, height: 60 }} danger block onPress={() => { this.Onlogin() }}>
               <Text style={{ color: 'white', fontSize: 16,textAlign:'right',fontWeight:'bold' }}>Login</Text></Button>
-            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} primary block >
+            <Button style={{ marginTop: 10, borderRadius: 5, height: 60 }} primary block >
               <Text style={{ color: 'white',textAlign:'right',fontWeight:'bold',fontSize:16 }}>Login With Facebook</Text>
                           <Icon name='logo-facebook' /></Button>
             <Label style={{ textAlign: 'center', paddingTop: 20, color: '#707070' }}>You don't have any account?
