@@ -34,8 +34,8 @@ export default class Sessions extends Component {
         })
         .then(()=>{
           mysec.push({
-            date:doc.toJSON().counter,
-            phone:doc.toJSON().date,
+            counter:doc.toJSON().counter,
+            date:doc.toJSON().date,
             description:doc.toJSON().description,
             location:doc.toJSON().location,
             phone:doc.toJSON().phone,

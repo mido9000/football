@@ -5,6 +5,7 @@ import { Actions } from 'react-native-router-flux';
 export default class Details extends Component {
   constructor(props) {
     super(props);
+    //alert(this.props.data)
   
   }
 render(){
@@ -16,7 +17,7 @@ return(
                 <Thumbnail source={require('../Img/15.png')} />
                 <Body>
                   <Text>mohamed essam</Text>
-                  <Text note>GeekyAnts</Text>
+                  <Text note>{this.props.data.date}</Text>
                 </Body>
               </Left>
             </CardItem>  

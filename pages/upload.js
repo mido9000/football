@@ -123,7 +123,7 @@ export default class Upload extends Component {
       }
     });
   }
-  onValueChange2(value: string) {
+  onValueChange2(value:string) {
     this.setState({
       location: value
     });
