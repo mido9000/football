@@ -144,11 +144,11 @@ export default class Upload extends Component {
                 selectedValue={this.state.selected2}
                 onValueChange={this.onValueChange2.bind(this)}
               >
-                <Picker.Item label="Wallet" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
+                <Picker.Item label="Mahatet_El-Raml" value="Mahatet_El-Raml" />
+                <Picker.Item label="Roshdy" value="Roshdy" />
+                <Picker.Item label="Smouha" value="Smouha" />
+                <Picker.Item label="Sporting" value="Sporting" />
+                <Picker.Item label="Sidy_Gaber" value="Sidy_Gaber" />
               </Picker>
             </Item>
 

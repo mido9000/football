@@ -20,7 +20,7 @@ export default class Locations extends Component {
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>
             <Body>
-              <Text note>Doing what you like will always keep you happy . .</Text>
+              <Text note>Mahatet_El-Raml</Text>
             </Body>
             <Right>
             </Right>
@@ -30,8 +30,7 @@ export default class Locations extends Component {
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>
             <Body>
-             
-              <Text note>Doing what you like will always keep you happy . .</Text>
+              <Text note>Roshdy</Text>
             </Body>
             <Right>
             </Right>
@@ -41,8 +40,7 @@ export default class Locations extends Component {
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>
             <Body>
-             
-              <Text note>Doing what you like will always keep you happy . .</Text>
+              <Text note>Smouha</Text>
             </Body>
             <Right>
               
@@ -53,7 +51,7 @@ export default class Locations extends Component {
             </Left>
             <Body>
          
-              <Text note>Doing what you like will always keep you happy . .</Text>
+              <Text note>Sporting</Text>
             </Body>
             <Right>
             </Right>
@@ -63,8 +61,8 @@ export default class Locations extends Component {
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>
             <Body>
-            <Text note>Doing what you like will always keep you happy . .</Text>
-             
+            <Text note>Sidy_Gaber</Text>
+            
             </Body>
             <Right>
             </Right>
