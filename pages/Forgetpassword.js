@@ -43,7 +43,7 @@ reset()
 
           <View style={{marginTop:60}}>
             <Label>Email</Label>
-            <Input autoCompleteType={"email"} placeholder={'Enter Your Email'}  onChangeText={(email) => this.setState({ email })} />
+            <Input autoCompleteType={"email"} keyboardType={'email-address'} placeholder={'Enter Your Email'}  onChangeText={(email) => this.setState({ email })} />
             <View>
               <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }}
                 danger block onPress={() => { this.reset() }}>

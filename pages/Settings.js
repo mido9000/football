@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Image, Dimensions } from 'react-native';
+import { Text, Image, Dimensions,Alert } from 'react-native';
 import { Container, Content, Icon, List, ListItem, Left, Right, Footer } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { AsyncStorage } from 'react-native';
@@ -11,7 +11,24 @@ export default class Settings extends Component {
     super(props);
 
   }
+
+  
   out() {
+    Alert.alert(
+      'Logout',
+      'Are you sure?',
+      [
+        {text: 'yes', onPress: () => this.confirmed()},
+        {
+          text: 'Cancel',
+          // onPress: () => Actions.pop(),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  }
+  confirmed(){
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
     AsyncStorage.clear();

@@ -77,7 +77,7 @@ export default class Login extends Component {
 
             <Item stackedLabel style={{marginTop:25}}>
               <Label>Email</Label>
-              <Input value={this.state.Email} autoCompleteType={"email"} onChangeText={(Email) => this.setState({ Email })}
+              <Input value={this.state.Email} autoCompleteType={"email"} keyboardType={'email-address'} onChangeText={(Email) => this.setState({ Email })}
                                              placeholder={'Enter Your Email'} />
             </Item>
 

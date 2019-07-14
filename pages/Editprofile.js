@@ -6,10 +6,15 @@ import * as firebase from "firebase";
 import {AsyncStorage} from 'react-native';
 import RNFetchBlob from 'react-native-fetch-blob';
 import ImagePicker from 'react-native-image-picker';
-const options = {
-title: 'Select Avatar',
-takePhotoButtonTitle:'take photo with camera',
-chooseFromLibraryButtonTitle:'Choose Photo from Library',  
+const storage = firebase.storage();
+const Blob = RNFetchBlob.polyfill.Blob;
+const fs = RNFetchBlob.fs;
+window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+window.Blob = Blob;
+var options = {
+  title: 'Select Avatar',
+  // customButtons:[{name:'fb' ,title:'Choose photo from facebook'},],
+  storageOptions: { skipbackup: 'True', path: 'images' }
 };
 const uploadImage = (uri, mime = 'img/jpg') => {
 
@@ -41,13 +46,15 @@ const uploadImage = (uri, mime = 'img/jpg') => {
   })
 }
 export default class Editprofile extends Component {
+  
   constructor(props) {
+ 
     super(props);
     this.state = {
       name: '',
       mobile:'',
       i: 1,
-      avatarSource:require('../Img/15.png')
+      avatarSource:''
     };
     var user = firebase.auth().currentUser.uid;
     var ref=firebase.database().ref('Users/'+user);
@@ -64,10 +71,17 @@ export default class Editprofile extends Component {
           }) 
         resolve(mobile);}else{reject("user")}});
 
+        ref.child("profile_picture").once('value').then((snapshot)=>{
+          //   alert(JSON.stringify( snapshot));
+             if (snapshot.val() !=null){
+               this.setState({
+                 avatarSource:snapshot.toJSON()
+               }) 
+             resolve(avatarSource);}else{reject("avatarSource")}});
+
   }
   update() {
-    this.setState({ i: 2 })
-    const {name,mobile} = this.state;
+    const {name,mobile,avatarSource} = this.state;
     var user = firebase.auth().currentUser.uid;
     var ref=firebase.database().ref('Users/'+user);
     ref.child("username").set(name).then((snapshot)=>{
@@ -84,9 +98,17 @@ export default class Editprofile extends Component {
             }) 
             resolve(mobile);}else{reject("user")} });
             
+            ref.child("profile_picture").set(avatarSource).then((snapshot)=>{
+              if (snapshot.val() !=null){
+                this.setState({
+                  avatarSource:snapshot.toJSON()
+                }) 
+                resolve(avatarSource);}else{reject("user")} })
+
       Actions.Home();
   }
-  pickerImg(){
+  pickImage() {
+    // Alert.alert('clicked');
     ImagePicker.showImagePicker(options, (response) => {
       this.setState({ avatarSource: '' })
       if (response.didCancel) {
@@ -101,24 +123,16 @@ export default class Editprofile extends Component {
       }
     });
   }
-  uploadImage() {
 
-    if (this.state.i == 1) {
-      return <Image  style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={this.state.avatarSource}></Image>
-    }
-    else if (this.state.i == 2) {
-      return <Image  style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={{ uri: this.state.avatarSource }}></Image>
-    }
-  }
   render() {
     return (
       <Container style={{ padding: 5 }}>
         <Content>
           <Form style={{ flex: 1 }}>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-            {this.uploadImage()}
+            <Image  style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={{ uri: this.state.avatarSource }}></Image>
               {/* <Image style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={this.state.avatarSource}></Image> */}
-              <Icon style={{color:'#F58524'}} name='edit' type='AntDesign'onPress={()=>{this.pickerImg()}} />
+              <Icon style={{color:'#F58524'}} name='edit' type='AntDesign'onPress={()=>{this.pickImage()}} />
             </View>
             <Item stackedLabel>
               <Label>Name</Label>

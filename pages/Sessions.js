@@ -10,7 +10,7 @@ import TabFooter from '../Component/TabFooter';
 
 export default class Sessions extends Component {
   state={
-    name:"omar",
+    name:"",
     session:[],
     user:{}
   }

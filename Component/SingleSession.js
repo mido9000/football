@@ -5,10 +5,10 @@ import { Actions } from 'react-native-router-flux';
 export default class SingleSession extends Component {
   constructor(props) {
     super(props);
-
+ 
     //alert(JSON.stringify(props.listData) )
     //alert(JSON.stringify(props.listData.userInfo.profile_picture.uri))
-  
+   //alert(JSON.stringify(props.listData.pic));
   }
 render(){
 return(
@@ -22,22 +22,22 @@ return(
             <CardItem >
               <Left>
                 {/* <Thumbnail source={require('../Img/15.png')} /> */}
-                <Thumbnail source={{uri :this.props.listData.userInfo.profile_picture.uri}} />
+                <Thumbnail source={{uri :this.props.listData.userInfo.profile_picture}} />
                 <Body>
-                  <Text>{this.props.listData.location}</Text>
-                  <Text note>{this.props.listData.userInfo.email}</Text>
+                  <Text>{this.props.listData.userInfo.username}</Text>
+                  <Text note>{this.props.listData.location}</Text>
                 </Body>
               </Left>
             </CardItem>
           
             <CardItem cardBody>
-              <Image source={require('../Img/2.jpg')} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={{uri:this.props.listData.pic}} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent>
                   <Icon active type="AntDesign" name="addusergroup" />
-                  <Text>/15</Text>
+                  <Text>{this.props.listData.counter}/15</Text>
                 </Button>
               </Left>
               <Body>

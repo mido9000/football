@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 export default class Details extends Component {
   constructor(props) {
     super(props);
-    //alert(this.props.data)
+    alert(JSON.stringify( this.props.data));
   
   }
 render(){
@@ -14,21 +14,20 @@ return(
       <Card >
         <CardItem>
               <Left>
-                <Thumbnail source={require('../Img/15.png')} />
+                <Thumbnail source={{uri :this.props.data.userInfo.profile_picture}} />
                 <Body>
                   <Text>mohamed essam</Text>
-                  <Text note>{this.props.data.date}</Text>
+                  <Text note>{this.props.data.location}</Text>
                 </Body>
               </Left>
             </CardItem>  
             <CardItem cardBody>
-              <Image source={require('../Img/2.jpg')} style={{height: 200,padding:5, flex: 1}}/>
+              <Image source={{uri:this.props.data.pic}} style={{height: 200,padding:5, flex: 1}}/>
             </CardItem>
             <CardItem>
              
               <Body>
-              <Text style={{textAlign:"center"}}>fkodihuidrhviuherkvknerkbgjhbijerhiubhidbviudnlkvjrevmoirjreoijvidflvoldufvhdh
-                vjfifdvuidfuvjdfnvijndfivnvuinviunvidfnfduinvideuvnheriviuuivvicjdocoiocisdcicsiosnc</Text>  
+              <Text style={{textAlign:"center"}}>{this.props.data.description}</Text>  
               </Body>
             </CardItem>
             <CardItem>
