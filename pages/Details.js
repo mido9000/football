@@ -9,7 +9,7 @@ export default class Details extends Component {
     counter:0,
     user:"",
     i:1,
-     
+    
   }
   componentWillMount(){
      this.isPresent()
@@ -22,24 +22,34 @@ export default class Details extends Component {
   
   }
   isPresent(){
-    this.setState({
-      user:firebase.auth().currentUser.uid
-    }) 
-    firebase.database().ref("Session/"+this.props.data.sessionId+"/players").once('value').then((snapshot)=>{
-      //alert(JSON.stringify(snapshot))
-      snapshot.forEach((doc)=>{
-          var player = doc.toJSON()
-          
-          if(player==this.state.user){
-            //alert(player+" / "+this.state.user)
-              this.setState({
-                i:2
-              })
-              
-          }
+    firebase.database().ref("Session/"+this.props.data.sessionId).once('value').then((snap)=>{
+      var counter= snap.toJSON().counter
+      this.setState({
+        counter:counter,
+        user:firebase.auth().currentUser.uid
+      })
+        
+    })
+    .then(()=>{
+      firebase.database().ref("Session/"+this.props.data.sessionId+"/players").once('value').then((snapshot)=>{
+      
+        snapshot.forEach((doc)=>{
+            var player = doc.toJSON()
+            
+            if(player==this.state.user){
+              //alert(player+" / "+this.state.user)
+                this.setState({
+                  i:2
+                })
+                
+            }
+        })
+        
       })
       
     })
+   
+    
   }
   joinGame(){
     this.setState({
@@ -76,13 +86,32 @@ export default class Details extends Component {
       })
     })
   }
+  cancelGame(){
+    firebase.database().ref("Session/"+this.props.data.sessionId+"/players").once('value').then((snapshot)=>{
+      snapshot.forEach((doc)=>{
+        var player = doc.toJSON()
+        var key = doc.key
+        if(player==this.state.user){
+          firebase.database().ref("Session/"+this.props.data.sessionId+"/players/"+key).remove()
+        }
+      })  
+    }).then(()=>{
+      this.setState({
+        counter:this.state.counter-1,
+        i:1
+      })
+      firebase.database().ref("Session/"+this.props.data.sessionId).update({
+        counter:this.state.counter
+      })
+    })
+  }
   uploadButton() {
 
     if (this.state.i == 2) {
       return <Button style={{ marginTop: 80, borderRadius: 5, height: 60 }} danger block
       onPress={()=>{
-        //this.cancelGame()
-        Actions.Confirm()
+        this.cancelGame()
+        //Actions.Confirm()
         }}>
             <Text style={{ color: 'white',textAlign:'right',fontWeight:'bold',fontSize:16 }}>Cancel</Text>
                         <Icon name='futbol-o' type="FontAwesome" /></Button>
