@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
 import TabFooter from '../Component/TabFooter';
-import { Actions } from 'react-native-router-flux';zzzz
+import { Actions } from 'react-native-router-flux';
 export default class Locations extends Component {
   
   constructor(props) {
