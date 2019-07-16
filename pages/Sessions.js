@@ -7,7 +7,7 @@ import flatlistData from '../Data/FlatListData';
 //import console = require('console');
 import TabFooter from '../Component/TabFooter';
 
-
+ 
 export default class Sessions extends Component {
   state={
     name:"",
@@ -19,14 +19,14 @@ export default class Sessions extends Component {
     
     firebase.database().ref('Session').on('value',(childSnapshot)=>{
       var mysec=[];
-      
+      //alert(JSON.stringify(childSnapshot) )
       
      
      childSnapshot.forEach((doc)=>{
         
       var userid=doc.toJSON().userId;
       //var userInfo;
-       // alert(userid)
+       //alert(JSON.stringify(doc.key) )
         firebase.database().ref("Users/"+userid).once('value').then((snapshot)=>{
           this.setState({
             user:snapshot.toJSON()
@@ -43,7 +43,8 @@ export default class Sessions extends Component {
             price:doc.toJSON().price,
             time:doc.toJSON().time,
             userId:doc.toJSON().userId,
-            userInfo:this.state.user
+            userInfo:this.state.user,
+            sessionId:doc.key
             
         })}) 
         .then(()=>{
@@ -88,4 +89,5 @@ export default class Sessions extends Component {
     )
   }
 }
+
 

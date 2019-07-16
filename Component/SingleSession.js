@@ -5,7 +5,7 @@ import { Actions } from 'react-native-router-flux';
 export default class SingleSession extends Component {
   constructor(props) {
     super(props);
- 
+  
     //alert(JSON.stringify(props.listData) )
     //alert(JSON.stringify(props.listData.userInfo.profile_picture.uri))
    //alert(JSON.stringify(props.listData.pic));
@@ -46,7 +46,7 @@ return(
               <Right>
               <Button transparent>
                   <Icon active type="EvilIcons" name="star" />
-                  <Text>{this.props.listData.date}</Text>
+                  <Text>rating</Text>
                 </Button>
               </Right>
             </CardItem>
@@ -65,6 +65,7 @@ return(
 );
 }
 }
+
 
 
 
