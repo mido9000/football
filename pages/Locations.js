@@ -11,6 +11,17 @@ export default class Locations extends Component {
     location:' '
   }
   }
+  Notification(){
+    this.popup.show({
+              onPress: function() {console.log('Pressed')},
+            appIconSource: require('../Img/2.jpg'),
+            appTitle: '5omasya',
+            timeText: 'Now',
+            title: 'Hello World',
+            body: 'This is a sample message.\nTesting emoji 😀',
+            slideOutTime: 5000
+        });
+}
   render() {
     return (
       <Container>
@@ -26,7 +37,8 @@ export default class Locations extends Component {
             <Right>
             </Right>
           </ListItem>
-          <ListItem avatar>
+          <ListItem avatar onPress={()=>{this.Notification()}}>
+          <NotificationPopup ref={ref => this.popup = ref} />
             <Left>
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>
