@@ -6,7 +6,7 @@ export default class Tab1 extends Component {
 
     //alert(JSON.stringify(props.myGames))
   }
-   
+  
   render() {
     return (
       <View>
@@ -21,7 +21,7 @@ export default class Tab1 extends Component {
               </Body>
               <Right>
                 <Button transparent>
-                   <Text style={{color:'red'}}>Cancel</Text>
+                  <Text style={{color:'red'}}>Cancel</Text>
                 </Button>
               </Right>
             </ListItem>

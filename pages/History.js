@@ -16,9 +16,9 @@ export default class History extends Component {
     user:{}
   }
 
-   componentWillMount(){
-     this.callFirebase()
-     this.callFirebase2()
+  async componentWillMount(){
+    // this.callFirebase()
+    await this.callFirebase2()
     
     } 
 
@@ -77,7 +77,7 @@ export default class History extends Component {
   callFirebase2(){
     var mysec =[];
     
-    var currentUser =firebase.auth().currentUser.uid;
+    var currentUser = firebase.auth().currentUser.uid;
     firebase.database().ref("Session").on("value",(snapshot)=>{
       snapshot.forEach((doc)=>{
           //alert(JSON.stringify(doc))

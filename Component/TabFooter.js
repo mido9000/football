@@ -15,9 +15,9 @@ return(
             <Button  vertical transparent onPress={()=>{Actions.Sessions()}} >
                 <Icon name="futbol-o" type="FontAwesome" />
             </Button>
-            <Button vertical transparent onPress={()=>{Actions.Locations()}}>
+            {/* <Button vertical transparent onPress={()=>{Actions.Locations()}}>
               <Icon name="location-pin" type="Entypo" />
-            </Button>
+            </Button> */}
             <Button vertical transparent onPress={()=>{Actions.Upload()}} >
               <Icon active name="pluscircle" type="AntDesign"/>
             </Button>

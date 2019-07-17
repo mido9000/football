@@ -106,6 +106,7 @@ export default class Upload extends Component {
       //error callback
       console.log('error ', error)
     })
+    Actions.Home();
   }
   pickImage() {
     // Alert.alert('clicked');
