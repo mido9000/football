@@ -67,7 +67,7 @@ export default class Upload extends Component {
       price: '',
       picurl: '',
       players:'',
-      counter:1,
+      counter:0,
       i: 1,
       selected2: undefined,
       avatarSource: require('../Img/2.jpg')
@@ -92,12 +92,12 @@ export default class Upload extends Component {
         userId,
         picurl,
   
-      }
-    ).then((data)=>{
-      firebase.database().ref("Session/"+sessionId+"/players").set({
-        1:userId
       })
-    })
+    // .then((data)=>{
+    //   firebase.database().ref("Session/"+sessionId+"/players").set({
+    //     1:userId
+    //   })
+    // })
     .then((data) => {
       //success callback
       this.setState({ i: 2 })

@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
         </Button>
       </Left>
       <Body style={{alignItems:'auto',paddingStart:58}}>
-        <Title style={{fontSize: 20,}}>Transparent</Title>
+        <Title style={{fontSize: 20,}}>Settings</Title>
       </Body>
       <Right>
         <Button disabled transparent>

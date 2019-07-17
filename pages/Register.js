@@ -168,6 +168,7 @@ else if(type=='Email')
     if(this.state.i==1){
       alert('you should select an image')
     }
+    
     else{
     const { name, Email, password, avatarSource,mobile } = this.state;
     let  user={

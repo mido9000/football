@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as firebase from "firebase";
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 export default class Tab2 extends Component {
   state={
     counter:0
@@ -30,6 +31,7 @@ export default class Tab2 extends Component {
         counter:this.state.counter
       })
     })
+    Actions.Sessions();
   }
   render() {
     return (
