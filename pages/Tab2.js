@@ -1,28 +1,56 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import * as firebase from "firebase";
+import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
 export default class Tab2 extends Component {
+  state={
+    counter:0
+  }
+  componentWillMount(){
+    this.setState({
+      counter:this.props.joinedGames.counter
+    })
+  }
+  cancelGame(){
+    
+    firebase.database().ref("Session/"+this.props.joinedGames.sessionId+"/players").once('value').then((snapshot)=>{
+      snapshot.forEach((doc)=>{
+        var player = doc.toJSON()
+        
+        if(player==this.props.joinedGames.currentUser){
+          firebase.database().ref("Session/"+this.props.joinedGames.sessionId+"/players/"
+          +this.props.joinedGames.playerId).remove()
+        }
+      })  
+    }).then(()=>{
+      this.setState({
+        counter:this.state.counter-1,
+        //i:1
+      })
+      firebase.database().ref("Session/"+this.props.joinedGames.sessionId).update({
+        counter:this.state.counter
+      })
+    })
+  }
   render() {
     return (
-      <Container>
-        <Content>
+      <View>
           <List>
             <ListItem thumbnail>
               <Left>
-                <Thumbnail square source={require('../Img/3.png')} />
+                <Thumbnail square source={{uri:this.props.joinedGames.pic}} />
               </Left>
               <Body>
-                <Text>Sankhadeep</Text>
-                <Text note numberOfLines={1}>Its time to build a difference . .</Text>
+                <Text>{this.props.joinedGames.time} / {this.props.joinedGames.date}</Text>
+                <Text note numberOfLines={1}>{this.props.joinedGames.location} - {this.props.joinedGames.description}</Text>
               </Body>
               <Right>
-                <Button transparent>
+                <Button transparent onPress={()=>{this.cancelGame()}}>
                   <Text style={{color:'red'}}>Cancel</Text>
                 </Button>
               </Right>
             </ListItem>
           </List>
-        </Content>
-      </Container>
+      </View>
     );
   }
 }

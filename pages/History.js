@@ -12,11 +12,13 @@ export default class History extends Component {
   state={
     name:"",
     mygames:[],
+    joinedgames:[],
     user:{}
   }
 
-  async componentWillMount(){
-    await this.callFirebase()
+   componentWillMount(){
+     this.callFirebase()
+     this.callFirebase2()
     
     } 
 
@@ -32,9 +34,6 @@ export default class History extends Component {
       childSnapshot.forEach((doc)=>{
         
         var userid=doc.toJSON().userId;
-        
-        //var userInfo;
-         // alert(userid)
           firebase.database().ref("Users/"+userid).once('value').then((snapshot)=>{
             this.setState({
               user:snapshot.toJSON()
@@ -45,7 +44,7 @@ export default class History extends Component {
             
             if(userid==currentUser){
              
-              cnt++;
+              //cnt++;
               //alert(cnt)
               mysec.push({
                 counter:doc.toJSON().counter,
@@ -67,11 +66,6 @@ export default class History extends Component {
               mygames:mysec
             })
           })
-          // .then(()=>{
-          //   alert(JSON.stringify(this.state.mygames));
-          // })
-             
-             //alert(JSON.stringify(this.state.session) )
   
             
        });
@@ -80,9 +74,60 @@ export default class History extends Component {
 
 
   }
+  callFirebase2(){
+    var mysec =[];
+    
+    var currentUser =firebase.auth().currentUser.uid;
+    firebase.database().ref("Session").on("value",(snapshot)=>{
+      snapshot.forEach((doc)=>{
+          //alert(JSON.stringify(doc))
+          var key = doc.key;
+          firebase.database().ref("Session/"+key+"/players").once('value').then((snapshot)=>{
+            //alert(JSON.stringify(snapshot))
+            var countPlayers=0; 
+            snapshot.forEach((players)=>{
+              var player = players.toJSON()
+              //alert(JSON.stringify(player) )
+              countPlayers++;
+              if(player==currentUser){
+                //alert(countPlayers)
+                
+                mysec.push({
+                  counter:doc.toJSON().counter,
+                  date:doc.toJSON().date,
+                  description:doc.toJSON().description,
+                  location:doc.toJSON().location,
+                  phone:doc.toJSON().phone,
+                  pic:doc.toJSON().picurl,
+                  price:doc.toJSON().price,
+                  time:doc.toJSON().time,
+                  userId:doc.toJSON().userId,
+                  sessionId:doc.key,
+                  currentUser:currentUser,
+                  playerId:countPlayers
+
+                })
+                //alert(JSON.stringify(mysec) )
+                  this.setState({
+                      joinedgames:mysec
+                  })
+                  
+              }
+          })
+          })
+      })
+      //alert(this.state.joinedgames)
+    })
+    
+    
+
+  }
   _renderItem = ({item}) =>(
     <Tab1 myGames={item}></Tab1>
   );
+  _renderItem2 = ({item}) =>(
+    <Tab2 joinedGames={item}></Tab2>
+  )
 
    render() {
    // await this.componentDidMount()
@@ -93,7 +138,6 @@ export default class History extends Component {
        
         <Tabs>
           <Tab heading="Sessions history">
-            {/* <Tab1 /> */}
             <FlatList
             data={this.state.mygames}
             extraData={this.state.name}
@@ -101,7 +145,11 @@ export default class History extends Component {
             renderItem={this._renderItem}/>
           </Tab>
           <Tab heading="Games history">
-            <Tab2 />
+          <FlatList
+            data={this.state.joinedgames}
+            extraData={this.state.name}
+            //keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem2}/>
           </Tab>
         </Tabs>
         <TabFooter></TabFooter>
