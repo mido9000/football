@@ -195,7 +195,7 @@ else if(type=='Email')
           AsyncStorage.setItem('userD', JSON.stringify(user), () => {
           AsyncStorage.getItem('userD', (err, result) => {
                 console.log(result);
-                Alert.alert(result);
+         //       Alert.alert(result);
             });
           });
         //  Alert.alert("done");
@@ -281,7 +281,7 @@ else if(type=='Email')
         </Content>
       </Container>
     );
-  }
+  } 
   uploadImage() {
 
     if (this.state.i == 1) {

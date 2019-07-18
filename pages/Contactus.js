@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text,Alert} from 'react-native';
+import {Text,Alert,Image} from 'react-native';
 import * as firebase from "firebase";
 import { View } from 'native-base';
 
@@ -23,7 +23,8 @@ export default class Contactus extends Component {
   }
   render() {
     return (
-      <View>
+      <View style={{ alignItems: 'center',padding:10}}>
+        <Image style={{width:100,height:100}} source={require('../Img/01.png')}></Image>
 
       <Text style={{fontSize:30,textAlign:"center"}}>{this.state.about}</Text>
       </View>
