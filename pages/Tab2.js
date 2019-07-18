@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Alert} from 'react-native';
 import * as firebase from "firebase";
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 export default class Tab2 extends Component {
   state={
     counter:0,
@@ -39,7 +40,7 @@ export default class Tab2 extends Component {
       firebase.database().ref("Session/"+this.props.joinedGames.sessionId).update({
         counter:this.state.counter
       })
-    })
+    }).then(()=>{Actions.Sessions();})
   }
   out() {
     Alert.alert(
