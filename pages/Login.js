@@ -3,6 +3,8 @@ import { StyleSheet, Text, Alert, Image,Animated, Easing } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Button, Icon, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from "firebase";
+import {ToastAndroid} from 'react-native';
+
 //import {firebaseConfig} from '../Config';
 import {AsyncStorage} from 'react-native';
 const firebaseConfig = {
@@ -62,6 +64,13 @@ export default class Login extends Component {
     });
    // Actions.Home();
   }
+  toast(){
+ToastAndroid.showWithGravity(
+  'Will be Available Soon',
+  ToastAndroid.SHORT,
+  ToastAndroid.CENTER,
+);
+  }
   render() {
     const spin = this.state.spinAnim.interpolate({
       inputRange: [0, 1],
@@ -89,7 +98,7 @@ export default class Login extends Component {
             <Label style={{ textAlign: 'right',marginTop:10 }} onPress={() => { Actions.Forgetpassword() }}>Forget Password?</Label>
             <Button style={{ marginTop: 10, borderRadius: 5, height: 60 }} danger block onPress={() => { this.Onlogin() }}>
               <Text style={{ color: 'white', fontSize: 16,textAlign:'right',fontWeight:'bold' }}>Login</Text></Button>
-            <Button style={{ marginTop: 10, borderRadius: 5, height: 60 }} primary block >
+            <Button style={{ marginTop: 10, borderRadius: 5, height: 60 }} primary block onPress={()=>{this.toast()}}>
               <Text style={{ color: 'white',textAlign:'right',fontWeight:'bold',fontSize:16 }}>Login With Facebook</Text>
                           <Icon name='logo-facebook' /></Button>
             <Label style={{ textAlign: 'center', paddingTop: 20, color: '#707070' }}>You don't have any account?

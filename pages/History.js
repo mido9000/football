@@ -10,15 +10,17 @@ import  flatlistData from '../Data/FlatListData'
 var tabList;
 export default class History extends Component {
   state={
-    name:"",
+    refresh:true,
     mygames:[],
     joinedgames:[],
-    user:{}
+    user:{},
+    //printShit:this.printShit
+    //cancelGameArray:this.cancelGameArray
   }
 
-  async componentWillMount(){
-    // this.callFirebase()
-    await this.callFirebase2()
+  componentWillMount(){
+    this.callFirebase()
+    this.callFirebase2()
     
     } 
 
@@ -69,6 +71,7 @@ export default class History extends Component {
   
             
        });
+       //alert(JSON.stringify(this.state.mygames))
        
       });
 
@@ -77,18 +80,17 @@ export default class History extends Component {
   callFirebase2(){
     var mysec =[];
     
-    var currentUser = firebase.auth().currentUser.uid;
+    var currentUser =firebase.auth().currentUser.uid;
     firebase.database().ref("Session").on("value",(snapshot)=>{
       snapshot.forEach((doc)=>{
           //alert(JSON.stringify(doc))
           var key = doc.key;
           firebase.database().ref("Session/"+key+"/players").once('value').then((snapshot)=>{
-            //alert(JSON.stringify(snapshot))
-            var countPlayers=0; 
+         
             snapshot.forEach((players)=>{
-              var player = players.toJSON()
+              var player = players.key
               //alert(JSON.stringify(player) )
-              countPlayers++;
+              //countPlayers++;
               if(player==currentUser){
                 //alert(countPlayers)
                 
@@ -104,7 +106,7 @@ export default class History extends Component {
                   userId:doc.toJSON().userId,
                   sessionId:doc.key,
                   currentUser:currentUser,
-                  playerId:countPlayers
+                  //playerId:countPlayers
 
                 })
                 //alert(JSON.stringify(mysec) )
@@ -122,11 +124,33 @@ export default class History extends Component {
     
 
   }
+  print(key){
+    alert(key)
+  }
+  
+  // cancelGameArray(key){
+  //   // var array = [...this.state.joinedgames]
+  //   // var index
+  //   alert(key)
+  //   //alert(JSON.stringify(array))
+  //   //var index = array.indexOf(value)
+  //   // array.forEach((session)=>{
+  //   //   if(session.currentUser==key){
+  //   //       index= array.indexOf(session)
+  //   //       array.splice(index,1)
+  //   //   }
+  //   // })
+  //   // this.setState({
+  //   //   joinedgames:array
+  //   // })
+
+    
+  // }
   _renderItem = ({item}) =>(
     <Tab1 myGames={item}></Tab1>
   );
   _renderItem2 = ({item}) =>(
-    <Tab2 joinedGames={item}></Tab2>
+    <Tab2 joinedGames={item} ></Tab2>
   )
 
    render() {
@@ -140,14 +164,14 @@ export default class History extends Component {
           <Tab heading="Sessions history">
             <FlatList
             data={this.state.mygames}
-            extraData={this.state.name}
+            //extraData={this.state.name}
             //keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}/>
           </Tab>
           <Tab heading="Games history">
           <FlatList
             data={this.state.joinedgames}
-            extraData={this.state.name}
+           // extraData={this.state}
             //keyExtractor={this._keyExtractor}
             renderItem={this._renderItem2}/>
           </Tab>

@@ -19,11 +19,6 @@ export default class Tab1 extends Component {
                 <Text>{this.props.myGames.time} / {this.props.myGames.date}</Text>
                 <Text note numberOfLines={1}>{this.props.myGames.location} - {this.props.myGames.description}</Text>
               </Body>
-              <Right>
-                <Button transparent>
-                  <Text style={{color:'red'}}>Cancel</Text>
-                </Button>
-              </Right>
             </ListItem>
           </List>
           </View>
