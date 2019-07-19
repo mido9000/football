@@ -72,12 +72,12 @@ export default class Register extends Component {
 {
    if(!this.state.nameValidate)
    {
-     alert("username must be from a-z,A-z");
+      alert("username doesn't end by space ");
 
    }
     else if(!this.state.passwordValidate)
    {
-    alert("password must contain \n at least 1 lowercase , Uppercase alphabetical character \n must conatin \n at least 1 numeric character\n at least one special character\n must be at least 8 characters");
+    alert("password must consist of \n from 8 to 16 characters ");
 
    }
    else if(!this.state.EmailValidate)
@@ -293,8 +293,8 @@ else if(type=='Email')
   }
 }
 
-const alpha=/^[a-zA-Z]+$/;
-const num  = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+const alpha=/^[a-zA-Z]+(\s+[a-zA-Z]+)?$/;
+const num  = /^.{8,16}$/;
  const emailvaild=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
  const phoneno = /^\d{11}$/;
 
