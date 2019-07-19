@@ -24,7 +24,7 @@ export default class Contactus extends Component {
   render() {
     return (
       <View style={{ alignItems: 'center',padding:10}}>
-        <Image style={{width:100,height:100}} source={require('../Img/01.png')}></Image>
+        <Image style={{width:100,height:100}} source={require('../Img/1.png')}></Image>
 
       <Text style={{fontSize:30,textAlign:"center"}}>{this.state.about}</Text>
       </View>

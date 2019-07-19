@@ -123,13 +123,13 @@ export default class Details extends Component {
         <Icon name='futbol-o' type="FontAwesome" /></Button>
     }
     else if (this.state.i == 1) {
-      return <Button style={{ marginTop: 80, borderRadius: 5, height: 60 }} danger block
+      return <Button style={{ marginTop: 60, borderRadius: 5, height: 60 }} danger block
         onPress={() => {
           //this.isPresent()
           this.joinGame()
           //Actions.Confirm()
         }}>
-        <Text style={{ color: 'white', textAlign: 'right', fontWeight: 'bold', fontSize: 16 }}>I want to Play</Text>
+        <Text style={{ color: 'white', textAlign: 'right', fontWeight: 'bold', fontSize: 16 }}>JOIN</Text> 
         <Icon name='futbol-o' type="FontAwesome" /></Button>
     }
   }
@@ -169,17 +169,19 @@ export default class Details extends Component {
               </TouchableOpacity>
             </Body>
             <Right>
-              <Text style={{ margin: 3, fontSize: 16, color: 'red' }}>Price: {this.props.data.price} EGP</Text>
+              <Text style={{ margin: 3, fontSize: 16, color: 'lightgreen' }}>Price: <Text style={{color:'black'}}>  {this.props.data.price} EGP</Text></Text>
             </Right>
           </CardItem>
           <CardItem style={{ borderTop: '1px slid' }} >
-            <Text> Description:</Text>
+            <Text style={{ color: 'lightgreen' }}> Description:</Text>
           </CardItem>
           <CardItem>
             <Text style={{ textAlign: "center" }}>   {this.props.data.description}</Text>
           </CardItem>
         </Card>
+        <View>
         {this.uploadButton()}
+        </View>
         {/* <Button style={{ marginTop: 80, borderRadius: 5, height: 60 }} danger block
 onPress={()=>{
 this.isPresent()

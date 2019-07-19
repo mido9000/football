@@ -161,14 +161,14 @@ export default class History extends Component {
         {/* <Header hasTabs /> */}
        
         <Tabs>
-          <Tab heading="Sessions history">
+          <Tab heading="Added Field">
             <FlatList
             data={this.state.mygames}
             //extraData={this.state.name}
             //keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}/>
           </Tab>
-          <Tab heading="Games history">
+          <Tab heading="JOINED MATCHES">
           <FlatList
             data={this.state.joinedgames}
            // extraData={this.state}

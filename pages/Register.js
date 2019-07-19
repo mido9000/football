@@ -245,7 +245,7 @@ else if(type=='Email')
               <Input  style={[styles.inputStyle,!this.state.nameValidate? styles.error :null]}
                     onChangeText={(text)=>this.validate(text,'username')}
                     onBlur={(text)=>this.errorMsg(text,'username')}
-                        placeholder={'Enter Your username'} />
+                        placeholder={'Enter your name'} />
               
             </Item>
             <Item stackedLabel>
