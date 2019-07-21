@@ -32,21 +32,7 @@ export default class Home extends Component {
         
     
     <View>
-      {/* <Text style={{textAlign:'center',fontSize:30}}>mohamed</Text>
-      <TouchableOpacity onPress={()=>{Actions.Sessions()}}>
-    <Image  style={{ width:screenWidth,height:screenWidth*500/1000,marginTop:10,marginBottom:30}} source={require('../Img/6.jpg')}></Image>
-    </TouchableOpacity>
-    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-    <Image  style={{height:100,width:100,marginBottom:20}} source={require('../Img/5.png')}></Image>
-    </View>
-    <View style={{flex:2 ,paddingBottom:100}}>
-      <TouchableOpacity onPress={()=>{Actions.Upload()}}>
-    <Image  style={{ width:screenWidth,height:screenWidth*500/1000,marginTop:10}} source={require('../Img/4.jpg')}></Image>
-      </TouchableOpacity>
-    </View>
-    <View style={{flex:1}}>
-    <TabFooter></TabFooter>
-    </View> */}
+     
    <ImageBackground style={{width:'100%',height:'99.6%'}} source={require('../Img/s.jpg')}>
      <View style={{alignItems:'center',alignSelf:'center',flexDirection:'row',flex:8,paddingTop:'30%'}}>
    <Animated.Image style={{height:100,width:100,transform: [{rotate: spin}]}} source={require('../Img/5.png')}></Animated.Image>

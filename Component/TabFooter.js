@@ -14,19 +14,25 @@ return(
           <FooterTab style={{backgroundColor:'white'}}>
             <Button  vertical transparent onPress={()=>{Actions.Sessions()}} >
                 <Icon name="futbol-o" type="FontAwesome" />
+                <Text>Fields</Text>
             </Button>
-            <Button vertical transparent onPress={()=>{Actions.Locations()}}>
+            {/* <Button vertical transparent onPress={()=>{Actions.Locations()}}>
               <Icon name="location-pin" type="Entypo" />
-            </Button>
+            </Button> */}
             <Button vertical transparent onPress={()=>{Actions.Upload()}} >
               <Icon active name="pluscircle" type="AntDesign"/>
+              <Text>ADD Field</Text>
             </Button>
             <Button  active  transparent onPress={()=>{Actions.History()}}>
             {/* <Badge ><Text>1</Text></Badge> */}
               <Icon  name="history" type="FontAwesome"  />
+              <Text>History</Text>
+
             </Button>
             <Button vertical transparent onPress={()=>{Actions.Settings()}}>
               <Icon name="ios-settings" type="Ionicons" />
+              <Text>Settings</Text>
+
             </Button>
           </FooterTab>
         </Footer>

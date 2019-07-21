@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
 import TabFooter from '../Component/TabFooter';
 import { Actions } from 'react-native-router-flux';
-import NotificationPopup from 'react-native-push-notification-popup';
+//import NotificationPopup from 'react-native-push-notification-popup';
 export default class Locations extends Component {
   
   constructor(props) {
@@ -11,7 +11,7 @@ export default class Locations extends Component {
     location:' '
   }
   }
-  Notification(){
+  /*Notification(){
     this.popup.show({
               onPress: function() {console.log('Pressed')},
             appIconSource: require('../Img/2.jpg'),
@@ -21,7 +21,7 @@ export default class Locations extends Component {
             body: 'This is a sample message.\nTesting emoji 😀',
             slideOutTime: 5000
         });
-}
+}*/
   render() {
     return (
       <Container>
@@ -37,8 +37,8 @@ export default class Locations extends Component {
             <Right>
             </Right>
           </ListItem>
-          <ListItem avatar onPress={()=>{this.Notification()}}>
-          <NotificationPopup ref={ref => this.popup = ref} />
+          <ListItem avatar /*onPress={()=>{this.Notification()}}*/>
+          {/* <NotificationPopup ref={ref => this.popup = ref} /> */}
             <Left>
               <Thumbnail  source={require('../Img/1.png')} />
             </Left>

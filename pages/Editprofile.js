@@ -130,9 +130,9 @@ export default class Editprofile extends Component {
         <Content>
           <Form style={{ flex: 1 }}>
             <View style={{ justifyContent: "center", alignItems: "center" }}>
-            <Image  style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={{ uri: this.state.avatarSource }}></Image>
+            <Image  style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={{ uri: this.state.avatarSource }} />
               {/* <Image style={{ width: 100, height: 100, alignItems: 'center',borderRadius:50 }} source={this.state.avatarSource}></Image> */}
-              <Icon style={{color:'#F58524'}} name='edit' type='AntDesign'onPress={()=>{this.pickImage()}} />
+              {/* <Icon style={{color:'#F58524'}} name='edit' type='AntDesign'onPress={()=>{this.pickImage()}} /> */}
             </View>
             <Item stackedLabel>
               <Label>Name</Label>

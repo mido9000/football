@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Image, ActivityIndicator, TextInput } from 'react-native';
+import { View, TouchableOpacity, Image, ActivityIndicator, TextInput,Alert } from 'react-native';
 import { Text, Item, Input, Container, Content, Button, Form, Label,Spinner,Picker,Icon   } from 'native-base';
 import * as firebase from "firebase";
 import RNFetchBlob from 'react-native-fetch-blob';
 var ImagePicker = require('react-native-image-picker');
 import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
-
-
+import TabFooter from '../Component/TabFooter';
+import {ToastAndroid} from 'react-native';
 const storage = firebase.storage();
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
@@ -35,7 +35,7 @@ const uploadImage = (uri, mime = 'img/jpg') => {
       .then((blob) => {
         uploadBlob = blob
         return imageRef.put(blob, { contentType: mime })
-      })
+      }) 
       .then(() => {
         uploadBlob.close()
         return imageRef.getDownloadURL()
@@ -67,12 +67,36 @@ export default class Upload extends Component {
       price: '',
       picurl: '',
       players:'',
-      counter:1,
+      counter:0,
       i: 1,
-      selected2: undefined,
-      avatarSource: require('../Img/2.jpg')
+      selected2: 'Mahatet_El-Raml',
+      avatarSource: ''
     }
   }
+  CheckConfirm() {
+    const { location, description, phone, time, date, price,avatarSource } = this.state;
+    if((phone=='')||(location=='')||(description=='')||(time=='')||(date=='')||(price=='')||(avatarSource=='')){
+      ToastAndroid.showWithGravity(
+        'please complete all required fields',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+    }
+    else{
+    Alert.alert(
+      'Add Session',
+      'Are you sure?',
+      [
+        {text: 'yes', onPress: () => this.Confirm()},
+        {
+          text: 'Cancel',
+          // onPress: () => Actions.pop(),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  }}
   Confirm() {
     const { location, description, phone, time, date, price,counter } = this.state;
     var picurl = this.state.avatarSource;
@@ -92,21 +116,22 @@ export default class Upload extends Component {
         userId,
         picurl,
   
-      }
-    ).then((data)=>{
-      firebase.database().ref("Session/"+sessionId+"/players").set({
-        1:userId
       })
-    })
+    // .then((data)=>{
+    //   firebase.database().ref("Session/"+sessionId+"/players").set({
+    //     1:userId
+    //   })
+    // })
     .then((data) => {
       //success callback
       this.setState({ i: 2 })
+      Actions.Home();
       console.log('data ', data)
     }).catch((error) => {
       //error callback
       console.log('error ', error)
     })
-    Actions.Home();
+  
   }
   pickImage() {
     // Alert.alert('clicked');
@@ -126,6 +151,7 @@ export default class Upload extends Component {
   }
   onValueChange2(value:string) {
     this.setState({
+      selected2: value,
       location: value
     });
   }
@@ -135,7 +161,7 @@ export default class Upload extends Component {
         <Content>
           <Form style={{ padding: 20 }}>
           <Item  style={{ borderColor: "red" }} picker>
-              <Picker
+              <Picker 
                 mode="dropdown"
                 iosIcon={<Icon name="arrow-down" />}
                 style={{ width: undefined }}
@@ -163,22 +189,18 @@ export default class Upload extends Component {
               <Input keyboardType={"number-pad"} maxLength={2} onChangeText={(capacity) => { this.setState({ capacity: capacity }); }} />
             </Item> */}
             <Item stackedLabel style={{ borderColor: "red" }}><Label>phone</Label>
-              <Input keyboardType={"number-pad"} onChangeText={(phone) => { this.setState({ phone: phone }); }} />
+              <Input maxLength={11} keyboardType={"number-pad"} onChangeText={(phone) => { this.setState({ phone: phone }); }} />
             </Item>
-            <View style={{ marginTop: 30, borderColor: "red", flexDirection: "row" }}>
-              <DatePicker style={{ width: "50%", borderColor: "red" }} date={this.state.time}
+            <View style={{ marginTop: 30, borderColor: "red", flexDirection: "row" ,justifyContent:"center"}}>
+              <DatePicker style={{ width: "40%", borderColor: "red" }} date={this.state.time}
                 mode="time" format="HH:mm" confirmBtnText="Confirm"
                 cancelBtnText="Cancel" minuteInterval={10}
                 placeholder="Please select time"
                 onDateChange={(time) => { this.setState({ time: time }); }}
-              // customStyles={{
-              //   dateIcon: {
-              //     position: 'absolute', left: 0, top: 4, marginLeft: 0,
-              //     width: 0, height: 0,borderColor:"red"
-              //   },
-              //   dateInput: { marginLeft: 0 }
-              // }} 
+               customStyles={{
+                 dateIcon: { display:'none' }}}
               />
+              <Icon type='MaterialIcons' name='access-time' style={{padding:5,color:'#D9534F'}}></Icon>
               <DatePicker
                 style={{ borderColor: "red", width: "50%" }} date={this.state.date} mode="date"
                 placeholder="Please select date" format="YYYY-MM-DD"
@@ -199,7 +221,7 @@ export default class Upload extends Component {
               <Input onChangeText={(period) => { this.setState({ period: period }); }} />
             </Item> */}
             <Item stackedLabel style={{ borderColor: "red" }}><Label>price</Label>
-              <Input maxLength={3} keyboardType={"number-pad"} onChangeText={(price) => { this.setState({ price: price }) }} />
+              <Input  maxLength={3} keyboardType={"number-pad"} onChangeText={(price) => { this.setState({ price: price }) }} />
             </Item>
             <View style={{ alignContent: "center", alignItems: "center" }}>
               {this.uploadImage()}
@@ -210,10 +232,11 @@ export default class Upload extends Component {
               <TouchableOpacity style={{ alignContent: "center", justifyContent: "center" }} onPress={() => { this.pickImage() }}>
                 <Image style={{ width: 50, height: 50, alignItems: "center" }} source={require('../Img/camera.png')}></Image>
               </TouchableOpacity>
-              <Button style={{ borderRadius: 20 }} danger onPress={() => { this.Confirm() }}><Text>Confirm</Text></Button>
+              <Button style={{ borderRadius: 20 }} danger onPress={() => { this.CheckConfirm() }}><Text>Confirm</Text></Button>
             </View>
           </Form>
         </Content>
+        <TabFooter></TabFooter>
       </Container>
     );
   }
@@ -221,7 +244,7 @@ export default class Upload extends Component {
   uploadImage() {
 
     if (this.state.i == 1) {
-      return <Image style={{ height: 100, width: '100%', marginTop: 10, marginBottom: 20 }} source={this.state.avatarSource}></Image>
+      return <Image style={{ height: 100, width: '100%', marginTop: 10, marginBottom: 20 }} source={require('../Img/2.jpg')}></Image>
     }
     else if (this.state.i == 2) {
       return <Image style={{ height: 100, width: '100%', marginTop: 10, marginBottom: 20 }} source={{ uri: this.state.avatarSource }}></Image>

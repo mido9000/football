@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import {Alert} from 'react-native';
 import * as firebase from "firebase";
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button,View } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 export default class Tab2 extends Component {
   state={
-    counter:0
+    counter:0,
+    i:0,
+    key:""
   }
   componentWillMount(){
     this.setState({
@@ -14,26 +18,51 @@ export default class Tab2 extends Component {
     
     firebase.database().ref("Session/"+this.props.joinedGames.sessionId+"/players").once('value').then((snapshot)=>{
       snapshot.forEach((doc)=>{
-        var player = doc.toJSON()
+        var player = doc.key
         
         if(player==this.props.joinedGames.currentUser){
           firebase.database().ref("Session/"+this.props.joinedGames.sessionId+"/players/"
-          +this.props.joinedGames.playerId).remove()
+          +this.props.joinedGames.currentUser).remove();
+          this.setState({
+            key:player
+          })
         }
       })  
     }).then(()=>{
+      
       this.setState({
         counter:this.state.counter-1,
+        i:1,
+        //refresh: !!this.state.refresh
         //i:1
       })
+      //alert(this.state.refresh)
       firebase.database().ref("Session/"+this.props.joinedGames.sessionId).update({
         counter:this.state.counter
       })
-    })
+    }).then(()=>{Actions.Sessions();})
   }
+  out() {
+    Alert.alert(
+      'Cancel',
+      'Are you sure?',
+      [
+        {text: 'yes', onPress: () => this.cancelGame()},
+        {
+          text: 'Cancel',
+          // onPress: () => Actions.pop(),
+          style: 'cancel',
+        },
+      ],
+      {cancelable: false},
+    );
+  }
+
+
   render() {
     return (
-      <View>
+      
+        <View>
           <List>
             <ListItem thumbnail>
               <Left>
@@ -44,13 +73,16 @@ export default class Tab2 extends Component {
                 <Text note numberOfLines={1}>{this.props.joinedGames.location} - {this.props.joinedGames.description}</Text>
               </Body>
               <Right>
-                <Button transparent onPress={()=>{this.cancelGame()}}>
+                <Button transparent onPress={()=>{this.out()}}>
                   <Text style={{color:'red'}}>Cancel</Text>
                 </Button>
               </Right>
             </ListItem>
           </List>
       </View>
+
+      
+      
     );
   }
 }

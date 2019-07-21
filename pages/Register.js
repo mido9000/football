@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, Alert, Image } from 'react-native';
+import { StyleSheet, Text,TextInput, Alert, Image } from 'react-native';
 import { Container, Content, Form, Item, Input, Label, Button, Icon, View } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import * as firebase from "firebase";
@@ -55,8 +55,10 @@ export default class Register extends Component {
       Email: '',
       password: '',
       mobile: '',
+      mobileValidate:true,
       name: '',
       avatarSource:require('../Img/15.png'),
+      avatarSourceValidate:true,
       nameValidate:true,
       passwordValidate:true,
       EmailValidate:true,
@@ -64,21 +66,28 @@ export default class Register extends Component {
     };
 
   }
+  
+  
   errorMsg(text,type)
 {
    if(!this.state.nameValidate)
    {
-     alert("username must be from a-z,A-z");
+      alert("username doesn't end by space ");
 
    }
     else if(!this.state.passwordValidate)
    {
-    alert("password must contain \n at least 1 lowercase , Uppercase alphabetical character \n must conatin \n at least 1 numeric character\n at least one special character\n must be at least 8 characters");
+    alert("password must consist of \n from 8 to 16 characters ");
 
    }
    else if(!this.state.EmailValidate)
    {
     alert("Email must be like this: mysite@ourearth.com or like this: mysite@you.me.net");
+
+   }
+    else if(!this.state.mobileValidate)
+   {
+    alert("Your Phone Number must consist of 11 digits");
 
    }
    
@@ -92,6 +101,7 @@ if(type=='username')
     {
         this.setState({
              nameValidate:true,
+             name:text,
         })
     }
     else
@@ -107,6 +117,7 @@ else if(type=='password')
     {
         this.setState({
             passwordValidate:true,
+            password:text,
         })
     }
     else
@@ -117,12 +128,30 @@ else if(type=='password')
     }
     
 }
+else if(type=='mobile')
+{
+    if(phoneno.test(text))
+    {
+        this.setState({
+            mobileValidate:true,
+            mobile:text,
+        })
+    }
+    else
+    { 
+         this.setState({
+            mobileValidate:false,
+        })
+    }
+    
+}
 else if(type=='Email')
 {
     if(emailvaild.test(text))
     {
         this.setState({
             EmailValidate:true,
+            Email:text,
         })
     }
     else
@@ -136,6 +165,11 @@ else if(type=='Email')
 
 }
   onRegister() {
+    if(this.state.i==1){
+      alert('you should select an image')
+    }
+    
+    else{
     const { name, Email, password, avatarSource,mobile } = this.state;
     let  user={
       Dname:name,
@@ -161,7 +195,7 @@ else if(type=='Email')
           AsyncStorage.setItem('userD', JSON.stringify(user), () => {
           AsyncStorage.getItem('userD', (err, result) => {
                 console.log(result);
-                Alert.alert(result);
+         //       Alert.alert(result);
             });
           });
         //  Alert.alert("done");
@@ -176,6 +210,7 @@ else if(type=='Email')
   //  Alert.alert('userData', `${name}+${Email} + ${password} ${confirmPassword}`);
   //  console.log(name);
   }
+}
   pickImage() {
     // Alert.alert('clicked');
     ImagePicker.showImagePicker(options, (response) => {
@@ -187,9 +222,12 @@ else if(type=='Email')
       } else if (response.customButtons) {
       } else {
         uploadImage(response.uri)
+        
+            .then(this.setState({i:2}))
           .then(url => this.setState({ avatarSource: url }))
           .catch(error => console.log(error))
       }
+      
     });
   }
   render() {
@@ -204,28 +242,46 @@ else if(type=='Email')
             </View>
             <Item stackedLabel>
               <Label>Name</Label>
-              <Input value={this.state.name} onChangeText={(name) => this.setState({ name })} placeholder={'Enter Your Name'} />
+              <Input  style={[styles.inputStyle,!this.state.nameValidate? styles.error :null]}
+                    onChangeText={(text)=>this.validate(text,'username')}
+                    onBlur={(text)=>this.errorMsg(text,'username')}
+                        placeholder={'Enter your name'} />
+              
             </Item>
             <Item stackedLabel>
               <Label>Email</Label>
-              <Input value={this.state.Email} autoCompleteType={"email"} keyboardType={'email-address'} onChangeText={(Email) => this.setState({ Email })} placeholder={'Enter Your Email'} />
+             <Input autoCompleteType={"email"} keyboardType={'email-address'} style={[styles.inputStyle,!this.state.EmailValidate? styles.error :null]}
+                    onChangeText={(text)=>this.validate(text,'Email')}
+                    onBlur={(text)=>this.errorMsg(text,'Email')}
+                        placeholder={'Enter Your Email'} />
+              
             </Item>
-            <Item stackedLabel last>
+            <Item stackedLabel >
               <Label>Password</Label>
-              <Input value={this.state.password} maxLength={16} onChangeText={(password) => this.setState({ password })} secureTextEntry={true} placeholder={'Enter Your password'} />
+              <Input style={[styles.inputStyle,!this.state.passwordValidate? styles.error :null]}
+              maxLength={16}  secureTextEntry={true}
+               onChangeText={(text)=>this.validate(text,'password')}
+                onBlur={(text)=>this.errorMsg(text,'password')}
+                placeholder={'Enter Your password'} />
+              
             </Item>
-            <Item stackedLabel last>
+            <Item stackedLabel >
               <Label>Mobile Number</Label>
-              <Input value={this.state.mobile} maxLength={16} keyboardType={'phone-pad'} onChangeText={(mobile) => this.setState({ mobile })}  placeholder={'Enter your Mobile Number'} />
+              <Input style={[styles.inputStyle,!this.state.mobileValidate? styles.error :null]}
+                keyboardType={'phone-pad'}
+               onChangeText={(text)=>this.validate(text,'mobile')}
+                onBlur={(text)=>this.errorMsg(text,'mobile')}
+                placeholder={'Enter Your Mobile Number'} />
+              
             </Item>
-            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }} danger block onPress={() => { this.onRegister() }}><Text style={{ color: 'white', fontSize: 16, textAlign: 'right', fontWeight: 'bold' }}>Register</Text></Button>
+            <Button style={{ marginTop: 20, borderRadius: 5, height: 60 }}   danger block onPress={() => { this.onRegister() }}><Text style={{ color: 'white', fontSize: 16, textAlign: 'right', fontWeight: 'bold' }}>Register</Text></Button>
             <Label style={{ textAlign: 'center', paddingTop: 20, color: '#707070' }}>You alerady have an account?
             <Text style={{ color: '#F58524' }} onPress={() => { Actions.Login() }} >Login</Text></Label>
           </Form>
         </Content>
       </Container>
     );
-  }
+  } 
   uploadImage() {
 
     if (this.state.i == 1) {
@@ -237,9 +293,10 @@ else if(type=='Email')
   }
 }
 
-const alpha=/^[a-zA-Z]+$/;
-const num  = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+const alpha=/^[a-zA-Z]+(\s+[a-zA-Z]+)?$/;
+const num  = /^.{8,16}$/;
  const emailvaild=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+ const phoneno = /^\d{11}$/;
 
 const styles = StyleSheet.create({
   container:{
@@ -253,6 +310,7 @@ inputStyle:{
     marginBottom:15,
     fontSize:20,
     paddingLeft:15,
+    width:'100%',
 },
 btnText:{
     backgroundColor:'#ECEEF1',
