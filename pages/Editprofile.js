@@ -118,7 +118,7 @@ export default class Editprofile extends Component {
       } else if (response.customButtons) {
       } else {
         uploadImage(response.uri)
-          .then(url => this.setState({ avatarSource: url }))
+          .then(url => this.setState({ avatarSource: uri }))
           .catch(error => console.log(error))
       }
     });

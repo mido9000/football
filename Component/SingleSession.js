@@ -36,8 +36,8 @@ return(
             <CardItem>
               <Left>
                 <Button transparent>
-                  <Icon active type="AntDesign" name="addusergroup" />
-                  <Text>{this.props.listData.counter}/15</Text>
+                  <Icon active  style={{color:'green'}} type="AntDesign" name="addusergroup" />
+                  <Text style={{color:'green'}}>{this.props.listData.counter}/15</Text>
                 </Button>
               </Left>
               <Body>
@@ -45,8 +45,8 @@ return(
               </Body>
               <Right>
               <Button transparent>
-                  <Icon active type="EvilIcons" name="star" />
-                  <Text>rating</Text>
+                  <Icon active style={{color:'orange'}} type="EvilIcons" name="star" />
+                  <Text style={{color:'orange',fontSize:15}}>4</Text>
                 </Button>
               </Right>
             </CardItem>
